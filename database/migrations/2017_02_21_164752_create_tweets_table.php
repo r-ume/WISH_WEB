@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTwittersTable extends Migration {
+class CreateTweetsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateTwittersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('twitters', function(Blueprint $table)
+		Schema::create('tweets', function(Blueprint $table)
 		{
 			$table->increments('id');
                         $table->text('tweet');
@@ -27,7 +27,7 @@ class CreateTwittersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('twitters');
+		Schema::drop('tweets');
 	}
 
 }

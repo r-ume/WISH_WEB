@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder {
 
                 $this->call('UsersTableSeeder');
                 $this->call('EventsTableSeeder');
-                $this->call('TwittersTableSeeder');
+                $this->call('TweetsTableSeeder');
                 $this->call('WishtimesTableSeeder');
 
                 DB::statement('SET FOREIGN_KEY_CHECKS=1;');
