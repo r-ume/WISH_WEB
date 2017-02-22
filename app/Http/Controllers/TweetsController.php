@@ -3,7 +3,8 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Tweet;
-use Illuminate\Http\Request;
+use Request;
+use App\Http\Requests\CreateTweetRequest;
 
 class TweetsController extends Controller {
 
@@ -25,7 +26,7 @@ class TweetsController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('tweets.create');
 	}
 
 	/**
@@ -33,9 +34,11 @@ class TweetsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateTweetRequest $request)
 	{
-		//
+                Tweet::create($request->all());
+
+                return redirect('tweets');
 	}
 
 	/**
@@ -80,5 +83,11 @@ class TweetsController extends Controller {
 	{
 		//
 	}
+
+	private function createTweet(CreateTweetRequest $request){
+	        $tweet = Tweet::create($request->all());
+
+                return $tweet;
+        }
 
 }
