@@ -24,10 +24,10 @@ class RouteServiceProvider extends ServiceProvider {
 	{
 		parent::boot($router);
 
-                $router->model('App\User', 'user');
-                $router->model('App\Event', 'event');
-                $router->model('App\Tweet', 'tweet');
-                $router->model('App\Wishtimes', 'wishtimes');
+                $router->model('user', 'App\User');
+                $router->model('event', 'App\Event' );
+                $router->model('tweet', 'App\Tweet');
+                $router->model('wishtimes', 'App\Wishtimes');
 	}
 
 
