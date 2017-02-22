@@ -24,8 +24,12 @@ class RouteServiceProvider extends ServiceProvider {
 	{
 		parent::boot($router);
 
-		//
+                $router->model('App\User', 'user');
+                $router->model('App\Event', 'event');
+                $router->model('App\Tweet', 'tweet');
+                $router->model('App\Wishtimes', 'wishtimes');
 	}
+
 
 	/**
 	 * Define the routes for the application.
