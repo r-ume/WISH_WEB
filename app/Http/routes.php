@@ -19,3 +19,7 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+Route::get('/tweets', 'TweetsController@index');
+Route::get('/tweets/{tweet}', 'TweetsController@show');
+//Route::get('/tweets/{tweet}', 'TweetController@')
