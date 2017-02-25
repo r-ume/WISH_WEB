@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder {
                 $this->call('WishtimesTableSeeder');
                 $this->call('RolesTableSeeder');
                 $this->call('RoleUserTableSeeder');
+                $this->call('LanguagesTableSeeder');
 
                 DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
