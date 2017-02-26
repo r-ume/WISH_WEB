@@ -22,11 +22,44 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Name</label>
+							<label class="col-md-4 control-label">FirstName</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
+								<input type="text" class="form-control" name="first_name" value="{{ old('name') }}">
 							</div>
 						</div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">LastName</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="last_name" value="{{ old('name') }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Sex</label>
+                            <div class="col-md-6">
+                                {!! Form::checkbox('sex', 'male') !!}{!! Form::label('male', 'male') !!}
+                                {!! Form::checkbox('sex', 'female') !!}{!! Form::label('female', 'female') !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Language</label>
+                            <div class="col-md-6">
+                                {{--{!! Form::checkbox('language_id', '1') !!}{!! Form::label('Language', 'Japanese') !!}--}}
+                                {{--{!! Form::checkbox('language_id', '2') !!}{!! Form::label('Language', 'English') !!}--}}
+                                {{--{!! Form::checkbox('language_id', '3') !!}{!! Form::label('Language', 'Chinese') !!}--}}
+                                {{--{!! Form::checkbox('language_id', '4') !!}{!! Form::label('Language', 'Korean') !!}--}}
+
+                                {{--{!! Form::select('language_id', array(--}}
+                                       {{--'1' => 'Japanese',--}}
+                                       {{--'2' => 'English',--}}
+                                       {{--'3' => 'Chinese',--}}
+                                       {{--'4' => 'Korean'--}}
+                                     {{--,), ['class' => 'btn btn-primary form-control']) !!}--}}
+
+                            </div>
+                        </div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">E-Mail Address</label>
