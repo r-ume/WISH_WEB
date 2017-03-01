@@ -23,7 +23,7 @@ class CreateWishTimesRequest extends Request {
 	{
 		return [
 			'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
 		];
 	}
 

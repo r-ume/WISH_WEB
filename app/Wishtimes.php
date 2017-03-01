@@ -9,6 +9,6 @@ class Wishtimes extends Model {
     protected $fillable = ['title', 'content'];
     
     public function user(){
-        return $this->hasMany('App\User')->withTimestamps();
+        return $this->belongsTo('App\User');
     }
 }
