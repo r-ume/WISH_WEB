@@ -25,5 +25,8 @@ Route::get('/tweets/create', 'TweetsController@create');
 Route::get('/tweets', 'TweetsController@index');
 Route::get('/tweets/{tweet}', 'TweetsController@show');
 
+Route::get('/wishtimes', 'WishtimesController@index');
+Route::get('/wishtimes/{wishtimes}', 'WishtimesController@show');
+
 
 Route::get('/api/tweets', 'API\APITweetController@index');
