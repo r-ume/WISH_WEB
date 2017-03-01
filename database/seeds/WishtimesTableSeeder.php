@@ -9,12 +9,14 @@ class WishtimesTableSeeder extends Seeder{
 
                 DB::table('wishtimes')->insert([
                         [
-                                'title' => 'first',
-                                'content' => 'first article'
+                            'title' => 'first',
+                            'content' => 'first article',
+                            'user_id' => '1'
                         ],
                         [
-                                'title' => 'second',
-                                'content' => 'second article'
+                            'title' => 'second',
+                            'content' => 'second article',
+                            'user_id' => '2'
                         ]
                 ]);
 
