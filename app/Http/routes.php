@@ -25,6 +25,8 @@ Route::get('/tweets/create', 'TweetsController@create');
 Route::get('/tweets', 'TweetsController@index');
 Route::get('/tweets/{tweet}', 'TweetsController@show');
 
+Route::post('/wishtimes', 'WishtimesController@store');
+Route::get('/wishtimes/create', 'WishtimesController@create');
 Route::get('/wishtimes', 'WishtimesController@index');
 Route::get('/wishtimes/{wishtimes}', 'WishtimesController@show');
 

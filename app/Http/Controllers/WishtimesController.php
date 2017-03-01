@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Wishtimes;
+use App\Http\Requests\CreateWishTimesRequest;
 
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class WishtimesController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('wishtimes.create');
 	}
 
 	/**
@@ -35,9 +36,11 @@ class WishtimesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateWishTimesRequest $request)
 	{
-		//
+	    $newWishtimes = Wishtimes::create($request->all());
+        
+        return redirect('wishtimes');
 	}
 
 	/**
