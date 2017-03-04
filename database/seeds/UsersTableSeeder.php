@@ -14,6 +14,7 @@ class UsersTableSeeder extends Seeder{
                 'sex' => 'male',
                 'language_id' => '1',
                 'image' => 'test.jpg',
+                'floor' => '5',
                 'email' => 'ryo@umeki.com',
                 'password' => bcrypt('ryoumeki'),
             ],
@@ -23,15 +24,17 @@ class UsersTableSeeder extends Seeder{
                 'sex' => 'male',
                 'language_id' => '1',
                 'image' => 'test.jpg',
+                'floor' => '2',
                 'email' => 'yutaro@kurashi.com',
                 'password' => bcrypt('yutarokurahashi')
             ],
             [
-                'first_name' => 'mari',
-                'last_name' => 'mizutani',
+                'first_name' => 'natumi',
+                'last_name' => 'higashige',
                 'sex' => 'female',
                 'language_id' => '2',
                 'image' => 'test.jpg',
+                'floor' => '8',
                 'email' => 'mari@mizutani.com',
                 'password' => bcrypt('marimizutani')
             ]

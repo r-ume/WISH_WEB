@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration {
             $table->string('sex');
             $table->integer('language_id')->unsigned();
             $table->string('image');
+            $table->integer('floor');
 			$table->string('email')->unique();
 			$table->string('password', 60);
 			$table->rememberToken();
