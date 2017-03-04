@@ -13,6 +13,7 @@ class UsersTableSeeder extends Seeder{
                 'last_name' => 'umeki',
                 'sex' => 'male',
                 'language_id' => '1',
+                'image' => 'test.jpg',
                 'email' => 'ryo@umeki.com',
                 'password' => 'ryoumeki',
             ],
@@ -21,6 +22,7 @@ class UsersTableSeeder extends Seeder{
                 'last_name' => 'kurahashi',
                 'sex' => 'male',
                 'language_id' => '1',
+                'image' => 'test.jpg',
                 'email' => 'yutaro@kurashi.com',
                 'password' => 'yutarokurahashi'
             ],
@@ -29,6 +31,7 @@ class UsersTableSeeder extends Seeder{
                 'last_name' => 'mizutani',
                 'sex' => 'female',
                 'language_id' => '2',
+                'image' => 'test.jpg',
                 'email' => 'mari@mizutani.com',
                 'password' => 'marimizutani'
             ]
