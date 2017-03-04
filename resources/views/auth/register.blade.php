@@ -46,17 +46,12 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Language</label>
                             <div class="col-md-6">
-                                {{--{!! Form::checkbox('language_id', '1') !!}{!! Form::label('Language', 'Japanese') !!}--}}
-                                {{--{!! Form::checkbox('language_id', '2') !!}{!! Form::label('Language', 'English') !!}--}}
-                                {{--{!! Form::checkbox('language_id', '3') !!}{!! Form::label('Language', 'Chinese') !!}--}}
-                                {{--{!! Form::checkbox('language_id', '4') !!}{!! Form::label('Language', 'Korean') !!}--}}
-
-                                {{--{!! Form::select('language_id', array(--}}
-                                       {{--'1' => 'Japanese',--}}
-                                       {{--'2' => 'English',--}}
-                                       {{--'3' => 'Chinese',--}}
-                                       {{--'4' => 'Korean'--}}
-                                     {{--,), ['class' => 'btn btn-primary form-control']) !!}--}}
+                                {!! Form::select('language_id', array(
+                                       '1' => 'Japanese',
+                                       '2' => 'English',
+                                       '3' => 'Chinese',
+                                       '4' => 'Korean'
+                                     ,), ['class' => 'btn btn-primary form-control']) !!}
 
                             </div>
                         </div>
