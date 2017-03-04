@@ -25,10 +25,12 @@ Route::get('/tweets/create', 'TweetsController@create');
 Route::get('/tweets', 'TweetsController@index');
 Route::get('/tweets/{tweet}', 'TweetsController@show');
 
+Route::get('/wishtimes/edit/{wishtimes}', 'WishtimesController@edit');
+Route::patch('/wishtimes/{wishtimes}', 'WishtimesController@update');
 Route::post('/wishtimes', 'WishtimesController@store');
 Route::get('/wishtimes/create', 'WishtimesController@create');
 Route::get('/wishtimes', 'WishtimesController@index');
 Route::get('/wishtimes/{wishtimes}', 'WishtimesController@show');
-
+Route::delete('/wishtimes/{wishtimes}', 'WishtimesController@destroy');
 
 Route::get('/api/tweets', 'API\APITweetController@index');

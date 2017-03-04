@@ -52,7 +52,6 @@
                                        '3' => 'Chinese',
                                        '4' => 'Korean'
                                      ,), ['class' => 'btn btn-primary form-control']) !!}
-
                             </div>
                         </div>
 

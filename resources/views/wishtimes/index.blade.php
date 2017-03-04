@@ -8,4 +8,8 @@
         <h3>{{$wishtime->content}}</h3>
         <h4>Author: {{$wishtime->user->first_name}}</h4>
     @endforeach
+
+    {!! Form::model($wishtimes, ['method' => 'GET', 'url' => 'wishtimes/create']) !!}
+        <button type="submit" class="btn btn-primary">Create a wish times</button>
+    {!! Form::close() !!}
 @endsection

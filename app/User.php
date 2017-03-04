@@ -32,7 +32,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	protected $hidden = ['password', 'remember_token'];
     
     public function wishtimes(){
-        return $this->hasMany('App\Wishtimes')->withTimestamps();
+        return $this->hasMany('App\Wishtimes');
     }
     
     public function tweets(){

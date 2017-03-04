@@ -65,9 +65,9 @@ class WishtimesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Wishtimes $wishtimes)
 	{
-		//
+		return view('wishtimes.edit', compact('wishtimes'));
 	}
 
 	/**
@@ -76,9 +76,11 @@ class WishtimesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Wishtimes $wishtimes, CreateWishTimesRequest $request)
 	{
-		//
+		$wishtimes->update($request->all());
+        
+        return redirect('wishtimes');
 	}
 
 	/**
@@ -87,9 +89,11 @@ class WishtimesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Wishtimes $wishtimes)
 	{
-		//
+		$wishtimes->delete();
+        
+        return redirect('wishtimes');
 	}
 
 }
