@@ -6,6 +6,14 @@
 
     <br/>
 
+    @if($errors->any())
+        <ul class = "alert alert-danger">
+            @foreach($errors->all() as $error)
+                <li> {{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
     {!! Form::model($wishtimes, ['method' => 'PATCH', 'action' => ['WishtimesController@update', $wishtimes->id]]) !!}
     <div class = "form-group">
         {!! Form::label('title', 'Title:') !!}
@@ -21,5 +29,7 @@
         {!! Form::submit('Edit this existing article', ['class' => 'btn btn-primary form-control']) !!}
     </div>
     {!! Form::close() !!}
+
+
 
 @endsection
