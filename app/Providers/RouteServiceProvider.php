@@ -28,6 +28,10 @@ class RouteServiceProvider extends ServiceProvider {
                 $router->model('event', 'App\Event' );
                 $router->model('tweet', 'App\Tweet');
                 $router->model('wishtimes', 'App\Wishtimes');
+        
+//        $router->bind('first_name', function($id){
+//            return \Auth::user()->first_name;
+//        });
 	}
 
 
