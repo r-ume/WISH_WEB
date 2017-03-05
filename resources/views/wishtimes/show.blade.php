@@ -12,4 +12,14 @@
         <button type="submit" class="btn btn-danger"
             onclick = 'return confirm("Are you sure that you would like to delete this circle?");'>delete</button>
     {!! Form::close() !!}
+
+    @unless($wishtimes->categories->isEmpty())
+        <h5>Categories: </h5>
+        <ul>
+            @foreach($wishtimes->categories as $category)
+                <li>{{$category->name}}</li>
+            @endforeach
+        </ul>
+    @endunless
+
 @endsection
