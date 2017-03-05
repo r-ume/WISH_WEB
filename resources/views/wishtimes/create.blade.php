@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    <h1>Create page for tweets</h1>
+    <h1>Create page for wishtimes</h1>
 
     @if($errors->any())
         <ul class = "alert alert-danger">

@@ -41,9 +41,13 @@ class WishtimesController extends Controller {
 	 */
 	public function store(CreateWishTimesRequest $request)
 	{
-	    $newWishtimes = new Wishtimes($request->all());
+//	    $newWishtimes = new Wishtimes($request->all());
+//
+//        \Auth::user()->wishtimes()->save($newWishtimes);
         
-        \Auth::user()->wishtimes()->save($newWishtimes);
+        \Auth::user()->wishtimes()->create($request->all());
+        
+        \Session::flash('flash_message', 'Your wishtimes have been created');
         
         return redirect('wishtimes');
 	}
