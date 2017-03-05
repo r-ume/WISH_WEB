@@ -4,9 +4,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model {
 
-	protected $table = '';
+	protected $table = 'categories';
     
-    protected $fillable = [];
+    protected $fillable = ['name'];
     
     public function events(){
         return $this->belongsToMany('App\Event')->withTimestamps();
