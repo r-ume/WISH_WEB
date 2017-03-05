@@ -45,8 +45,7 @@ class WishtimesController extends Controller {
 	{
         $wishtimes = \Auth::user()->wishtimes()->create($request->all());
         
-        dd($request->input('categories_list'));
-        $wishtimes->categories()->attach($request->input('categories_list'));
+        $wishtimes->categories()->sync($request->input('categories_list'));
         
         \Session::flash('flash_message', 'Your wishtimes have been created');
         
@@ -86,8 +85,7 @@ class WishtimesController extends Controller {
 	{
         $wishtimes->update($request->all());
         
-//        dd($request->input('categories_list'));
-        $wishtimes->categories()->attach($request->input('categories_list'));
+        $wishtimes->categories()->sync($request->input('categories_list'));
         
         return redirect('wishtimes');
 	}
