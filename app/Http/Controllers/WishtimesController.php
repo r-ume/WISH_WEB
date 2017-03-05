@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Wishtimes;
+use App\Category;
 use App\Http\Requests\CreateWishTimesRequest;
 
 class WishtimesController extends Controller {
@@ -31,7 +32,8 @@ class WishtimesController extends Controller {
 	 */
 	public function create()
 	{
-		return view('wishtimes.create', compact('user_id'));
+	    $categories = Category::lists('name', 'id');
+		return view('wishtimes.create', compact('categories'));
 	}
 
 	/**
@@ -41,11 +43,10 @@ class WishtimesController extends Controller {
 	 */
 	public function store(CreateWishTimesRequest $request)
 	{
-//	    $newWishtimes = new Wishtimes($request->all());
-//
-//        \Auth::user()->wishtimes()->save($newWishtimes);
+        $wishtimes = \Auth::user()->wishtimes()->create($request->all());
         
-        \Auth::user()->wishtimes()->create($request->all());
+        dd($request->input('categories_list'));
+        $wishtimes->categories()->attach($request->input('categories_list'));
         
         \Session::flash('flash_message', 'Your wishtimes have been created');
         
@@ -71,7 +72,8 @@ class WishtimesController extends Controller {
 	 */
 	public function edit(Wishtimes $wishtimes)
 	{
-		return view('wishtimes.edit', compact('wishtimes'));
+        $categories = Category::lists('name', 'id');
+        return view('wishtimes.edit', compact('wishtimes', 'categories'));
 	}
 
 	/**
@@ -82,7 +84,10 @@ class WishtimesController extends Controller {
 	 */
 	public function update(Wishtimes $wishtimes, CreateWishTimesRequest $request)
 	{
-		$wishtimes->update($request->all());
+        $wishtimes->update($request->all());
+        
+//        dd($request->input('categories_list'));
+        $wishtimes->categories()->attach($request->input('categories_list'));
         
         return redirect('wishtimes');
 	}
