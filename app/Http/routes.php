@@ -33,7 +33,10 @@ Route::get('/wishtimes', 'WishtimesController@index');
 Route::get('/wishtimes/{wishtimes}', 'WishtimesController@show');
 Route::delete('/wishtimes/{wishtimes}', 'WishtimesController@destroy');
 
+Route::post('/myprofile/upload', 'UsersController@upload');
+Route::get('/myprofile/edit/{user}', 'UsersController@edit');
 Route::get('/myprofile', 'UsersController@show');
+
 
 
 Route::get('/api/tweets', 'API\APITweetController@index');

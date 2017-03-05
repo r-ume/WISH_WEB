@@ -3,40 +3,19 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+
 use Illuminate\Http\Request;
+use \Input as Input;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class UsersController extends Controller {
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
+    
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => 'show', 'edit', 'update', 'upload']);
+    }
+    
 	/**
 	 * Display the specified resource.
 	 *
@@ -55,9 +34,10 @@ class UsersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit()
 	{
-		//
+		$user = \Auth::user();
+        return view('users.edit', compact('user'));
 	}
 
 	/**
@@ -71,15 +51,18 @@ class UsersController extends Controller {
 		//
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+	public function upload()
+    {
+        $user = \Auth::user();
+        $input = Input::all();
+        
+        $image = Input::file('fileName');
+        $fileName = $input['fileName']->getClientOriginalName();
+        $path = public_path('uploads/' . $fileName);
+        Image::make($image->getRealPath())->resize(468, 468)->save($path);
+        $user->image = 'uploads/'.$fileName;
+        $user->save();
 
+        return view('users.show', compact('user'));
+    }
 }
