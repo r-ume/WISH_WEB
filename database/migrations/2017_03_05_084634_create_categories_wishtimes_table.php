@@ -29,7 +29,7 @@ class CreateCategoriesWishtimesTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('categories_feeds');
+        Schema::drop('categories_wishtimes');
     }
 
 }
