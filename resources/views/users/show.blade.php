@@ -7,5 +7,4 @@
 
     <img src="{{ asset($user->image) }}" />
 
-
 @endsection

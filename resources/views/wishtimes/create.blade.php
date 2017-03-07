@@ -11,7 +11,7 @@
         </ul>
     @endif
 
-    {!! Form::open(['url' => 'wishtimes']) !!}
+    {!! Form::open(['url' => 'wishtimes', 'files' => true]) !!}
         <div class = "form-group">
             {!! Form::label('title', 'Title:') !!}
             {!! Form::text('title', null, ['class' => 'form-control']) !!}
@@ -25,6 +25,11 @@
         <div class = "form-group">
             {!! Form::label('categories_list', 'Categories:') !!}
             {!! Form::select('categories_list[]', $categories, null, ['id' => 'categories_list', 'class' => 'form-control', 'multiple']) !!}
+        </div>
+
+        <div class = "form-group">
+            {!! Form::label('image', '画像アップロード', ['class' => 'control-label']) !!}
+            {!! Form::file('image') !!}
         </div>
 
         <div class = "form-group">

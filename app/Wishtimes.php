@@ -6,7 +6,7 @@ class Wishtimes extends Model {
 
 	protected $table = 'wishtimes';
 
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['title', 'content', 'image'];
     
     public function user(){
         return $this->belongsTo('App\User');

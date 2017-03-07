@@ -6,6 +6,9 @@ use App\Wishtimes;
 use App\Category;
 use App\Http\Requests\CreateWishTimesRequest;
 
+use \Input as Input;
+use Intervention\Image\ImageManagerStatic as Image;
+
 class WishtimesController extends Controller {
 
     public function __construct()
@@ -44,6 +47,14 @@ class WishtimesController extends Controller {
 	public function store(CreateWishTimesRequest $request)
 	{
         $wishtimes = \Auth::user()->wishtimes()->create($request->all());
+        
+        $input = Input::all();
+        $image = Input::file('image');
+        $imageName = $input['image']->getClientOriginalName();
+        $path = public_path('uploads/'.$imageName);
+        Image::make($image->getRealPath())->resize(468, 468)->save($path);
+        $wishtimes->image = 'uploads/'.$imageName;
+        $wishtimes->save();
         
         $wishtimes->categories()->sync($request->input('categories_list'));
         
@@ -102,5 +113,4 @@ class WishtimesController extends Controller {
         
         return redirect('wishtimes');
 	}
-
 }

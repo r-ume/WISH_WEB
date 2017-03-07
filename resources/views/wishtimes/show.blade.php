@@ -3,6 +3,7 @@
 @section('content')
     <h1>{{$wishtimes->title}}</h1>
     <h2>{{$wishtimes->content}}</h2>
+    <span><img src="{{ asset($wishtimes->image) }}" /></span>
 
     {!! Form::model($wishtimes, ['method' => 'GET', 'url' => 'wishtimes/edit/'.$wishtimes->id]) !!}
         <button type="submit" class="btn btn-primary">edit</button>
@@ -21,5 +22,4 @@
             @endforeach
         </ul>
     @endunless
-
 @endsection
