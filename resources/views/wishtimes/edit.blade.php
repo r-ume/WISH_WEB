@@ -27,7 +27,7 @@
 
     <div class = "form-group">
         {!! Form::label('categories_list', 'Categories:') !!}
-        {!! Form::select('categories_list[]', $categories, null, ['class' => 'form-control', 'multiple']) !!}
+        {!! Form::select('categories_list[]', $categories, null, ['id' => 'categories_list', 'class' => 'form-control', 'multiple']) !!}
     </div>
 
     <div class = "form-group">
@@ -35,6 +35,12 @@
     </div>
     {!! Form::close() !!}
 
+@endsection
 
-
+@section('footer')
+    <script>
+        $('#categories_list').select2({
+            placeholder: 'choose a category'
+        });
+    </script>
 @endsection
