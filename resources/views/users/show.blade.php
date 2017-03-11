@@ -6,5 +6,4 @@
     <h4>floor {{$user->floor}}</h4>
 
     <img src="{{ asset($user->image) }}" />
-
 @endsection

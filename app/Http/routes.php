@@ -37,6 +37,13 @@ Route::post('/myprofile/upload', 'UsersController@upload');
 Route::get('/myprofile/edit/{user}', 'UsersController@edit');
 Route::get('/myprofile', 'UsersController@show');
 
+Route::get('/events/edit/{event}', 'EventsController@edit');
+Route::patch('/events/{event}', 'EventsController@update');
+Route::post('/events', 'EventsController@store');
+Route::get('/events/create', 'EventsController@create');
+Route::get('/events/{event}', 'EventsController@show');
+Route::get('/events', 'EventsController@index');
+Route::delete('/events/{event}', 'EventsController@destroy');
 
 
 Route::get('/api/tweets', 'API\APITweetController@index');

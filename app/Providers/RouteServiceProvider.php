@@ -21,17 +21,14 @@ class RouteServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function boot(Router $router)
-	{
-		parent::boot($router);
+    {
+        parent::boot($router);
 
-                $router->model('user', 'App\User');
-                $router->model('event', 'App\Event' );
-                $router->model('tweet', 'App\Tweet');
-                $router->model('wishtimes', 'App\Wishtimes');
-        
-//        $router->bind('first_name', function($id){
-//            return \Auth::user()->first_name;
-//        });
+        $router->model('user', 'App\User');
+        $router->model('event', 'App\Event' );
+        $router->model('tweet', 'App\Tweet');
+        $router->model('wishtimes', 'App\Wishtimes');
+        $router->model('event', 'App\Event');
 	}
 
 

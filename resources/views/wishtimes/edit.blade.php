@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h1>Edit the times: {{$wishtimes->name}}</h1>
+    <h1>Edit the wishtimes: {{$wishtimes->name}}</h1>
 
     <br/>
 
@@ -31,7 +31,7 @@
     </div>
 
     <div class = "form-group">
-        {!! Form::submit('Edit this existing article', ['class' => 'btn btn-primary form-control']) !!}
+        {!! Form::submit('Edit this existing wishtimes', ['class' => 'btn btn-primary form-control']) !!}
     </div>
     {!! Form::close() !!}
 

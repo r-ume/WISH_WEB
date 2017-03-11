@@ -36,9 +36,9 @@ class TweetsController extends Controller {
 	 */
 	public function store(CreateTweetRequest $request)
 	{
-                Tweet::create($request->all());
+        Tweet::create($request->all());
 
-                return redirect('tweets');
+        return redirect('tweets');
 	}
 
 	/**
@@ -48,46 +48,12 @@ class TweetsController extends Controller {
 	 * @return Response
 	 */
 	public function show(Tweet $tweet){
-	        return view('tweets.show', compact('tweet'));
+        return view('tweets.show', compact('tweet'));
 	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
+    
 	private function createTweet(CreateTweetRequest $request){
-	        $tweet = Tweet::create($request->all());
+        $tweet = Tweet::create($request->all());
 
-                return $tweet;
-        }
-
+        return $tweet;
+    }
 }
