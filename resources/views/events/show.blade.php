@@ -14,4 +14,13 @@
     <button type="submit" class="btn btn-danger"
             onclick = 'return confirm("Are you sure that you would like to delete the event?");'>delete</button>
     {!! Form::close() !!}
+
+    @unless($event->categories->isEmpty())
+        <h5>Categories: </h5>
+        <ul>
+            @foreach($event->categories as $category)
+                <li>{{$category->name}}</li>
+            @endforeach
+        </ul>
+    @endunless
 @endsection
