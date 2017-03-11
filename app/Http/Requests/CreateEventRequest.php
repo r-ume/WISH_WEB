@@ -22,7 +22,7 @@ class CreateEventRequest extends Request {
 	public function rules()
 	{
 		return [
-			'title' => 'required|unique:events',
+			'title' => 'required',
             'description' => 'required'
 		];
 	}

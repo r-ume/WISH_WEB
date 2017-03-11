@@ -25,10 +25,10 @@
         {!! Form::textarea('description', $event->description, ['class' => 'form-control']) !!}
     </div>
 
-    {{--<div class = "form-group">--}}
-        {{--{!! Form::label('categories_list', 'Categories:') !!}--}}
-        {{--{!! Form::select('categories_list[]', $categories, null, ['id' => 'categories_list', 'class' => 'form-control', 'multiple']) !!}--}}
-    {{--</div>--}}
+    <div class = "form-group">
+        {!! Form::label('categories_list', 'Categories:') !!}
+        {!! Form::select('categories_list[]', $categories, null, ['id' => 'categories_list', 'class' => 'form-control', 'multiple']) !!}
+    </div>
 
     <div class = "form-group">
         {!! Form::submit('Edit this existing event', ['class' => 'btn btn-primary form-control']) !!}

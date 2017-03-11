@@ -73,7 +73,8 @@ class EventsController extends Controller {
      * @return Response
      */
     public function edit(Event $event){
-        return view('events.edit', compact('event'));
+        $categories = Category::lists('name', 'id');
+        return view('events.edit', compact('event', 'categories'));
     }
 
     /**
@@ -84,6 +85,8 @@ class EventsController extends Controller {
      */
     public function update(CreateEventRequest $request, Event $event){
         $event->update($request->all());
+
+        $event->categories()->sync($request->input('categories_list'));
 
         return redirect('events');
     }

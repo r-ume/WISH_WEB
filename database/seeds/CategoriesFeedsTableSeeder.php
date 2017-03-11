@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class CategoriesFeedsTableSeeder extends Seeder{
     public function run(){
         DB::table('categories_feeds')->truncate();
-        
+
         DB::table('categories_feeds')->insert([
             [
                 'category_id' => '1',
@@ -19,4 +19,3 @@ class CategoriesFeedsTableSeeder extends Seeder{
         ]);
     }
 }
-
