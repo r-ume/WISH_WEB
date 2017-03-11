@@ -11,12 +11,14 @@ class EventsTableSeeder extends Seeder{
             [
                 'title' => 'christmas',
                 'description' => 'christmasevent',
-                'image' => 'test.jpg'
+                'image' => 'test.jpg',
+                'user_id' => '1'
             ],
             [
                 'title' => 'welcome_party',
                 'description' => 'welcome_event',
-                'image' => 'test.jpg'
+                'image' => 'test.jpg',
+                'user_id' => '2'
             ]
         ]);
     }
