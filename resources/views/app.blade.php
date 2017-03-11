@@ -44,7 +44,7 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="/myprofile">Home</a></li>
+					<li><a href="/">Home</a></li>
                     <li><a href="/wishtimes">Wishtimes</a></li>
                     <li><a href="/events">Events</a></li>
                     <li><a href="/tweets">Tweets</a></li>
