@@ -3,6 +3,8 @@
 @section('content')
     <h1>{{$event->title}}</h1>
     <h3>{{$event->description}}</h3>
+    <span><img src="{{ asset($event->image) }}" /></span>
+
 
     {!! Form::model($event, ['method' => 'GET', 'url' => 'events/edit/'.$event->id]) !!}
     <button type="submit" class="btn btn-primary">edit</button>

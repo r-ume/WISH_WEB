@@ -47,6 +47,7 @@
 					<li><a href="/myprofile">Home</a></li>
                     <li><a href="/wishtimes">Wishtimes</a></li>
                     <li><a href="/events">Events</a></li>
+                    <li><a href="/tweets">Tweets</a></li>
                 </ul>
 
 				<ul class="nav navbar-nav navbar-right">

@@ -7,11 +7,14 @@ use App\Event;
 use App\Http\Requests\CreateEventRequest;
 use Illuminate\Http\Request;
 
+use \Input as Input;
+use Intervention\Image\ImageManagerStatic as Image;
+
 class EventsController extends Controller {
     
     public function __construct()
     {
-        $this->middleware('auth', ['only' => 'show', 'create', 'store', 'edit', 'update', 'delete']);
+        $this->middleware('auth');
     }
 
 	/**
@@ -42,8 +45,16 @@ class EventsController extends Controller {
 	 */
 	public function store(CreateEventRequest $request)
 	{
-		Event::create($request->all());
-        
+		$event = Event::create($request->all());
+
+        $input = Input::all();
+        $image = Input::file('image');
+        $imageName = $input['image']->getClientOriginalName();
+        $path = public_path('uploads/'.$imageName);
+        Image::make($image->getRealPath())->resize(468, 468)->save($path);
+        $event->image = 'uploads/'.$imageName;
+        $event->save();
+
         return redirect('events');
 	}
 
