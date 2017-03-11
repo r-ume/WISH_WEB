@@ -8,6 +8,9 @@ use App\Http\Requests\CreateTweetRequest;
 
 class TweetsController extends Controller {
 
+    public function __construct(){
+        $this->middleware('auth');
+    }
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -16,7 +19,7 @@ class TweetsController extends Controller {
 	public function index(){
 		$tweets = Tweet::all();
 
-                return view('tweets.index', compact('tweets'));
+        return view('tweets.index', compact('tweets'));
 	}
 
 	/**

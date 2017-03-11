@@ -13,7 +13,7 @@ class UsersController extends Controller {
     
     public function __construct()
     {
-        $this->middleware('auth', ['only' => 'show', 'edit', 'update', 'upload']);
+        $this->middleware('auth');
     }
     
 	/**
