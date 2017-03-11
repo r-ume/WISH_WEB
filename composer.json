@@ -7,7 +7,8 @@
 	"require": {
 		"laravel/framework": "5.0.*",
         "laravelcollective/html": "~5.0",
-		"intervention/image": "^2.3"
+		"intervention/image": "^2.3",
+		"wangaz/laravel-semantic-ui-css": "^1.2"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
@@ -33,7 +34,10 @@
 		],
 		"post-update-cmd": [
 			"php artisan clear-compiled",
-			"php artisan optimize"
+			"php artisan optimize",
+      "mkdir -p public/assets",
+      "ln -sf ../../vendor/wangaz/laravel-semantic-ui-css/src/assets/jquery public/assets/jquery",
+      "ln -sf ../../vendor/wangaz/laravel-semantic-ui-css/src/assets/semantic-ui public/assets/semantic-ui"
 		],
 		"post-create-project-cmd": [
 			"php -r \"copy('.env.example', '.env');\"",
