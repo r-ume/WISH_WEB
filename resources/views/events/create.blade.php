@@ -22,10 +22,10 @@
         {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
     </div>
 
-    {{--<div class = "form-group">--}}
-        {{--{!! Form::label('categories_list', 'Categories:') !!}--}}
-        {{--{!! Form::select('categories_list[]', $categories, null, ['id' => 'categories_list', 'class' => 'form-control', 'multiple']) !!}--}}
-    {{--</div>--}}
+    <div class = "form-group">
+        {!! Form::label('categories_list', 'Categories:') !!}
+        {!! Form::select('categories_list[]', $categories, null, ['id' => 'categories_list', 'class' => 'form-control', 'multiple']) !!}
+    </div>
 
     <div class = "form-group">
         {!! Form::label('image', '画像アップロード', ['class' => 'control-label']) !!}

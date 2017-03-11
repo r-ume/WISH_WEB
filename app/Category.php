@@ -9,7 +9,7 @@ class Category extends Model {
     protected $fillable = ['name'];
     
     public function events(){
-        return $this->belongsToMany('App\Event')->withTimestamps();
+        return $this->belongsToMany('App\Event', 'categories_events', 'category_id', 'event_id')->withTimestamps();
     }
     
     public function feeds(){
@@ -17,6 +17,6 @@ class Category extends Model {
     }
     
     public function wishtimes(){
-        return $this->belongsToMany('App\Category')->withTimestamps();
+        return $this->belongsToMany('App\Wishtimes')->withTimestamps();
     }
 }

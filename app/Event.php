@@ -6,5 +6,17 @@ class Event extends Model {
 
     protected $table = 'events';
 
-    protected $fillable = ['title', 'description'];
+    protected $fillable = ['title', 'description', 'image'];
+
+    public function users(){
+        return $this->belongsTo('App\User');
+    }
+
+    public function categories(){
+        return $this->belongsToMany('App\Category', 'categories_events', 'event_id', 'category_id');
+    }
+
+    public function getCategoriesListAttribute(){
+        return $this->categories->lists('id');
+    }
 }

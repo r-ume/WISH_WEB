@@ -36,7 +36,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
     
     public function tweets(){
-        return $this->hasMany('App\Tweet')->withTimestamps();
+        return $this->hasMany('App\Tweet');
     }
     
     public function roles(){
@@ -44,6 +44,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
     
     public function language(){
-        return $this->hasMany('App\Language')->withTimestamps();
+        return $this->belongsTo('App\Language');
+    }
+
+    public function events(){
+        return $this->hasMany('App\Event');
     }
 }

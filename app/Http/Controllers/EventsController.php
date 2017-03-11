@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Event;
+use App\Category;
 
 use App\Http\Requests\CreateEventRequest;
 use Illuminate\Http\Request;
@@ -11,41 +12,38 @@ use \Input as Input;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class EventsController extends Controller {
-    
-    public function __construct()
-    {
+
+    public function __construct(){
         $this->middleware('auth');
     }
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$events = Event::all();
+      /**
+       * Display a listing of the resource.
+       *
+       * @return Response
+       */
+    public function index(){
+        $events = Event::all();
         return view('events.index', compact('events'));
-	}
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return view('events.create');
-	}
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return Response
+   */
+    public function create(){
+        $categories = Category::lists('name', 'id');
+        return view('events.create', compact('categories'));
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store(CreateEventRequest $request)
-	{
-		$event = Event::create($request->all());
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store(CreateEventRequest $request){
+        $event = \Auth::user()->events()->create($request->all());
 
         $input = Input::all();
         $image = Input::file('image');
@@ -56,54 +54,50 @@ class EventsController extends Controller {
         $event->save();
 
         return redirect('events');
-	}
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show(Event $event)
-	{
-		return view('events.show', compact('event'));
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show(Event $event){
+        return view('events.show', compact('event'));
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit(Event $event)
-	{
-		return view('events.edit', compact('event'));
-	}
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit(Event $event){
+        return view('events.edit', compact('event'));
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update(CreateEventRequest $request, Event $event)
-	{
-		$event->update($request->all());
-        
-        return redirect('events');
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy(Event $event)
-	{
-		$event->delete();
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(CreateEventRequest $request, Event $event){
+        $event->update($request->all());
 
         return redirect('events');
-	}
+    }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy(Event $event)
+    {
+        $event->delete();
+
+        return redirect('events');
+    }
 }
