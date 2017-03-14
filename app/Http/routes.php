@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+//Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
@@ -45,7 +45,6 @@ Route::get('/events/{event}', 'EventsController@show');
 Route::get('/events', 'EventsController@index');
 Route::delete('/events/{event}', 'EventsController@destroy');
 
-
 Route::get('/api/tweets', 'API\APITweetController@index');
 
-Route::get('/semantic', 'SemanticController@semantic');
+Route::get('/', 'SemanticController@semantic');
