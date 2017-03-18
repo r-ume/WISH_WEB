@@ -36,10 +36,10 @@ class Registrar implements RegistrarContract {
 			'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'sex' => $data['sex'],
-            'language_id' => intval($data['language_id']),
+            'language_id' => preg_replace('/[^0-9]/', '', $data['language_id']),
+            'floor' => intval($data['floor']),
 			'email' => $data['email'],
 			'password' => bcrypt($data['password']),
 		]);
 	}
-
 }
