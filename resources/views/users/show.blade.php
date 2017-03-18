@@ -12,7 +12,7 @@
     <script type="text/javascript" src="http://gsgd.co.uk/sandbox/jquery/easing/jquery.easing.1.3.js"></script>
 
     <!-- Site Properties -->
-    <title>Fixed Menu Example - Semantic</title>
+    <title>My Profile</title>
 
     <style type="text/css">
         body {
