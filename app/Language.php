@@ -7,10 +7,9 @@ class Language extends Model {
 
 	protected $table = 'languages';
 
-    protected $fillable = 'language';
+    protected $fillable = ['language'];
     
     public function users(){
-        $this->hasMany('App\User')->withTimestamps();
+        $this->hasMany('App\User');
     }
-
 }
