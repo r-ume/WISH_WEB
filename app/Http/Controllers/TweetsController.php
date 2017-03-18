@@ -17,9 +17,16 @@ class TweetsController extends Controller {
 	 * @return Response
 	 */
 	public function index(){
-		$tweets = Tweet::all();
 
-        return view('tweets.index', compact('tweets'));
+	    $paginationNum = 5;
+        $user = \Auth::user();
+        $tweets = Tweet::orderBy('created_at', 'DESC')->paginate($paginationNum);
+
+        $allTweets = Tweet::all();
+        $tweetsNum = $allTweets->count();
+        $pageNum = floor($tweetsNum / $paginationNum);
+
+        return view('tweets.index', compact('tweets', 'user', 'pageNum'));
 	}
 
 	/**
@@ -39,7 +46,7 @@ class TweetsController extends Controller {
 	 */
 	public function store(CreateTweetRequest $request)
 	{
-        Tweet::create($request->all());
+        $tweet = \Auth::user()->tweets()->create($request->all());
 
         return redirect('tweets');
 	}
