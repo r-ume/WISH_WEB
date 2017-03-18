@@ -9,6 +9,6 @@ class Tweet extends Model {
     protected $fillable = ['tweet'];
     
     public function user(){
-        $this->belongsTo('App\User')->withTimestamps();
+        return $this->belongsTo('App\User');
     }
 }
