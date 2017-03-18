@@ -47,4 +47,5 @@ Route::delete('/events/{event}', 'EventsController@destroy');
 
 Route::get('/api/tweets', 'API\APITweetController@index');
 
+Route::get('/semantic/login', 'SemanticController@semanticLogin');
 Route::get('/', 'SemanticController@semantic');
