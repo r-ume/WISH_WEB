@@ -69,7 +69,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="four wide column">
                 <div class="ui fluid vertical menu moderns">
                     <a href="" class="header item">Category</a>
