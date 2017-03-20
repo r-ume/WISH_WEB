@@ -7,7 +7,7 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
         <link rel = "stylesheet" type = "text/css" href = "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.css" />
         <script type ="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.js"></script>
-        <script type="text/javascript" src="http://gsgd.co.uk/sandbox/jquery/easing/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
         <script type="text/javascript" src="javascript/easyng.js"></script>
     </head>
 
@@ -39,6 +39,9 @@
                 <div class="twelve wide column">
                     <h1> Wish times</h1>
                     <h3>Wishtimesの一覧ページ</h3>
+                        <a href = "/wishtimes/create">
+                            <button type="submit" class="ui primary button">create a new wishtimes</button>
+                        </a>
                     <div align="center">
                         <div class="ui items">
                             @foreach($wishtimes as $wishtime)
@@ -65,7 +68,9 @@
                                         <p>{{ $wishtime->content }}</p>
                                     </div>
                                     <div class="extra">
-                                        <div class="ui blue right floated button">Read More</div>
+                                        <div class="ui blue right floated button">
+                                            <a href = "{{action('WishtimesController@show', [$wishtime->id])}}" style ="color:white;">Read More</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -82,6 +87,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Right Sidebar -->
                 <div class="four wide column">
                     <div class="ui fluid vertical menu moderns">
@@ -110,6 +116,33 @@
                         {{--<div class="ui secondary segment">--}}
                             {{--Other Content--}}
                         {{--</div>--}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer area -->
+        <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+                <div class="ui stackable inverted divided equal height stackable grid">
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">WISH_WEBについて</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">困ったら、RAに連絡を</a>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">Services</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">マイプロフィール</a>
+                            <a href="#" class="item">Wishtimes</a>
+                            <a href="#" class="item">イベント</a>
+                            <a href="#" class="item">つぶやきWISH</a>
+                        </div>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui inverted header">いいね！</h4>
+                        <p>気楽にゆるーく、まあ、何回も失敗してもいいんじゃない？死ぬわけじゃないじゃないし</p>
                     </div>
                 </div>
             </div>
