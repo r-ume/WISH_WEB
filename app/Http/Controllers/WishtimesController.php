@@ -81,7 +81,8 @@ class WishtimesController extends Controller {
 	public function show(Wishtimes $wishtimes)
 	{
         $user = \Auth::user();
-        return view('wishtimes.show', compact('wishtimes', 'user'));
+        $tweets = Tweet::all();
+        return view('wishtimes.show', compact('wishtimes', 'user', 'tweets'));
 	}
 
 	/**

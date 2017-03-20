@@ -1,23 +1,3 @@
-
-    {{--{!! Form::model($wishtimes, ['method' => 'GET', 'url' => 'wishtimes/edit/'.$wishtimes->id]) !!}--}}
-        {{--<button type="submit" class="btn btn-primary">edit</button>--}}
-    {{--{!! Form::close() !!}--}}
-
-    {{--{!! Form::model($wishtimes, ['method' => 'DELETE', 'url' => 'wishtimes/'.$wishtimes->id]) !!}--}}
-        {{--<button type="submit" class="btn btn-danger"--}}
-            {{--onclick = 'return confirm("Are you sure that you would like to delete this circle?");'>delete</button>--}}
-    {{--{!! Form::close() !!}--}}
-
-    {{--@unless($wishtimes->categories->isEmpty())--}}
-        {{--<h5>Categories: </h5>--}}
-        {{--<ul>--}}
-            {{--@foreach($wishtimes->categories as $category)--}}
-                {{--<li>{{$category->name}}</li>--}}
-            {{--@endforeach--}}
-        {{--</ul>--}}
-    {{--@endunless--}}
-{{--@endsection--}}
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -57,7 +37,7 @@
     <div class="ui container content">
         <div class="ui stackable doubling grid">
             <!-- Middle Content -->
-            <div class="ten wide column">
+            <div class="twelve wide column">
                 {!! Form::model($wishtimes, ['method' => 'GET', 'url' => 'wishtimes/edit/'.$wishtimes->id]) !!}
                     <button type="submit" class="ui primary button">edit</button>
                 {!! Form::close() !!}
@@ -88,8 +68,34 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <div class="four wide column">
+                <div class="ui fluid vertical menu moderns">
+                    <a href="" class="header item">Category</a>
+                    @unless($wishtimes->categories->isEmpty())
+                        @foreach($wishtimes->categories as $category)
+                            <a href="" class="item">{{ $category->name }}</a>
+                        @endforeach
+                    @endunless
+                </div>
 
-                <div class="ui horizontal divider">Categories</div>
+                <div class="ui segments moderns">
+                    <div class="ui header segment">
+                        Tweets
+                    </div>
+                    <div class="ui segment">
+                        <div class="owl-carousel" id="single-slider">
+                            @foreach($tweets as $tweet)
+                                <div class="item">
+                                    <div align="justify">
+                                        <p>{{ $tweet->tweet }} <br /><i class="calendar icon"></i>{{ $tweet->created_at }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
