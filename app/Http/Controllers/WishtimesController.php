@@ -11,7 +11,7 @@ use \Input as Input;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class WishtimesController extends Controller {
-
+    
     public function __construct()
     {
         $this->middleware('auth');
@@ -93,8 +93,10 @@ class WishtimesController extends Controller {
 	 */
 	public function edit(Wishtimes $wishtimes)
 	{
+        $tweets = Tweet::all();
         $categories = Category::lists('name', 'id');
-        return view('wishtimes.edit', compact('wishtimes', 'categories'));
+        $user = \Auth::user();
+        return view('wishtimes.edit', compact('wishtimes', 'categories', 'user', 'tweets'));
 	}
 
 	/**
