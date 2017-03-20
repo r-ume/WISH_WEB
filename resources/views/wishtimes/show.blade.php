@@ -57,8 +57,18 @@
     <div class="ui container content">
         <div class="ui stackable doubling grid">
             <!-- Middle Content -->
-            <div class="sixteen wide column">
+            <div class="ten wide column">
+                {!! Form::model($wishtimes, ['method' => 'GET', 'url' => 'wishtimes/edit/'.$wishtimes->id]) !!}
+                    <button type="submit" class="ui primary button">edit</button>
+                {!! Form::close() !!}
+
+                {!! Form::model($wishtimes, ['method' => 'DELETE', 'url' => 'wishtimes/'.$wishtimes->id]) !!}
+                    <button type="submit" class="red ui button"
+                        onclick = 'return confirm("Are you sure that you would like to delete this wishtime?");'>delete</button>
+                {!! Form::close() !!}
+
                 <div class="ui horizontal divider"><h2>{{ $wishtimes->title }}</h2></div>
+
                 <div align="center">
                     <p>{{ $wishtimes->content }}</p>
                     {{--<blockquote><h3>"Berkarya, Bersama, Berjaya"</h3></blockquote>--}}
@@ -73,11 +83,13 @@
                     <div class="ui centered stackable doubling grid">
                         <div class="eight wide column">
                             <div class="owl-carousel" id="multiple-slider">
-                                <div class="item"><img src="{{ asset($user->image) }}" style = "width: 130px; height: "130px"></div>
+                                <div class="item"><img src="{{ asset($user->image) }}" style = "width: 130px; height: 130px;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="ui horizontal divider">Categories</div>
             </div>
         </div>
     </div>

@@ -80,7 +80,8 @@ class WishtimesController extends Controller {
 	 */
 	public function show(Wishtimes $wishtimes)
 	{
-		return view('wishtimes.show', compact('wishtimes'));
+        $user = \Auth::user();
+        return view('wishtimes.show', compact('wishtimes', 'user'));
 	}
 
 	/**
