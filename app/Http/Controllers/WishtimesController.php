@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Wishtimes;
 use App\Category;
+use App\Tweet;
 use App\Http\Requests\CreateWishTimesRequest;
 
 use \Input as Input;
@@ -23,9 +24,17 @@ class WishtimesController extends Controller {
 	 */
 	public function index()
 	{
-		$wishtimes = Wishtimes::all();
+	    $paginationNum = 3;
+        $allWishtimes = Wishtimes::all();
+        $wishtimesNum = $allWishtimes->count();
+        $pageNum = floor($wishtimesNum / $paginationNum);
         
-        return view('wishtimes.index', compact('wishtimes'));
+        $user = \Auth::user();
+        $wishtimes = Wishtimes::orderBy('created_at', 'DESC')->paginate($paginationNum);
+        $categories = Category::all();
+        $tweets = Tweet::orderBy('created_at', 'DESC')->get();
+        
+        return view('wishtimes.index', compact('user', 'wishtimes', 'categories', 'tweets', 'pageNum'));
 	}
 
 	/**
