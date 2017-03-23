@@ -8,7 +8,7 @@ class Event extends Model {
 
     protected $fillable = ['title', 'description', 'image'];
 
-    public function users(){
+    public function user(){
         return $this->belongsTo('App\User');
     }
 

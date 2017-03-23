@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Event;
 use App\Category;
+use App\Tweet;
 
 use App\Http\Requests\CreateEventRequest;
 use Illuminate\Http\Request;
@@ -23,8 +24,17 @@ class EventsController extends Controller {
        * @return Response
        */
     public function index(){
+        $paginationNum = 3;
+        $allEvents = Event::all();
+        $eventsNum = $allEvents->count();
+        $pageNum = floor($eventsNum / $paginationNum);
+        
+        $user = \Auth::user();
         $events = Event::all();
-        return view('events.index', compact('events'));
+        $categories = Category::all();
+        $tweets = Tweet::orderBy('created_at', 'DESC')->get();
+    
+        return view('events.index', compact('events', 'user', 'pageNum', 'categories', 'tweets'));
     }
 
   /**
