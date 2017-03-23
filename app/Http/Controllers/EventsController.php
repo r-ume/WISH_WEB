@@ -83,8 +83,10 @@ class EventsController extends Controller {
      * @return Response
      */
     public function edit(Event $event){
+        $user = \Auth::user();
         $categories = Category::lists('name', 'id');
-        return view('events.edit', compact('event', 'categories'));
+        $tweets = Tweet::orderBy('created_at', 'DESC')->get();
+        return view('events.edit', compact('event', 'categories', 'user', 'tweets'));
     }
 
     /**
