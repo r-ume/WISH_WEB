@@ -35,8 +35,9 @@ Route::delete('/wishtimes/{wishtimes}', 'WishtimesController@destroy');
 
 Route::post('/myprofile/upload', 'UsersController@upload');
 Route::get('/myprofile/edit/{user}', 'UsersController@edit');
-Route::get('/myprofile', 'UsersController@show');
+Route::get('/myprofile', 'UsersController@myprofile');
 Route::get('/residents', 'UsersController@index');
+Route::get('/user/{user}', 'UsersController@show');
 
 Route::get('/events/edit/{event}', 'EventsController@edit');
 Route::patch('/events/{event}', 'EventsController@update');

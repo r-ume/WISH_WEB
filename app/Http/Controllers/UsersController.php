@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Event;
 
 use Illuminate\Http\Request;
 use \Input as Input;
@@ -22,16 +23,23 @@ class UsersController extends Controller {
         $users = User::all();
         return view('users.index', compact('user', 'users'));
     }
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show()
-	{
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show(){
+        $user = \Auth::user();
+        return view('users.show', compact('user'));
+    }
+    
+	public function myprofile(){
 	    $user = \Auth::user();
-		return view('users.show', compact('user'));
+        
+        $events = Event::all();
+		return view('users.myprofile', compact('user', 'events'));
 	}
 
 	/**
