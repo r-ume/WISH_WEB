@@ -16,6 +16,12 @@ class UsersController extends Controller {
         $this->middleware('auth');
     }
     
+    
+    public function index(){
+        $user = \Auth::user();
+        $users = User::all();
+        return view('users.index', compact('user', 'users'));
+    }
 	/**
 	 * Display the specified resource.
 	 *

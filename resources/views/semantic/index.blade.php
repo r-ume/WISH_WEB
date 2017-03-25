@@ -143,6 +143,7 @@
             <a class="item" href = "/events">Events</a>
             <a class="item" href = "/wishtimes">Wishtimes</a>
             <a class="item" href = "/tweets">Tweets</a>
+            <a class="item" href = "/residents">Residents</a>
             <div class="right menu">
                 <div class="item">
                     <a class="ui button">Log in</a>
@@ -161,6 +162,7 @@
         <a class="item" href = "/events">Events</a>
         <a class="item" href = "wishtimes">Wishtimes</a>
         <a class="item" href = "tweets">Tweets</a>
+        <a class="item" href = "/residents">Residents</a>
         <a class="item">Signup</a>
     </div>
 
@@ -177,6 +179,11 @@
                     <a class="item" href = "/events">Events</a>
                     <a class="item" href = "/wishtimes">Wishtimes</a>
                     <a class="item" href = "/tweets">Tweets</a>
+                    @foreach(Auth::user()->roles as $role)
+                        @if($role->role == "RA")
+                            <a class="item" href = "/residents">Residents</a>
+                        @endif
+                    @endforeach
                     <div class="right item">
                         <a class="ui inverted button" href = "/auth/login">Log in</a>
                         <a class="ui inverted button" href = "/auth/register">Sign Up</a>
