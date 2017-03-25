@@ -73,7 +73,11 @@ class EventsController extends Controller {
      * @return Response
      */
     public function show(Event $event){
-        return view('events.show', compact('event'));
+        $tweets = Tweet::all();
+        $categories = Category::all();
+        $user = \Auth::user();
+    
+        return view('events.show', compact('event', 'tweets', 'categories', 'user'));
     }
 
     /**
