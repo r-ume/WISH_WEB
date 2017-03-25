@@ -44,8 +44,12 @@ class WishtimesController extends Controller {
 	 */
 	public function create()
 	{
-	    $categories = Category::lists('name', 'id');
-		return view('wishtimes.create', compact('categories'));
+        $user = \Auth::user();
+        
+        $categories = Category::lists('name', 'id');
+        $allCategories = Category::all();
+        $tweets = Tweet::all();
+        return view('wishtimes.create', compact('user', 'categories', 'allCategories', 'tweets'));
 	}
 
 	/**

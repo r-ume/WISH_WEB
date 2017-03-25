@@ -84,7 +84,7 @@
                 <div class="four wide column">
                     <div class="ui fluid vertical menu moderns">
                         <a href="" class="header item">Category</a>
-                        @foreach($categories_list as $category)
+                        @foreach($allCategories as $category)
                             <a href="" class="item">{{ $category->name }}</a>
                         @endforeach
                     </div>

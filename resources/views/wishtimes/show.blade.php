@@ -63,7 +63,7 @@
                     <div class="ui centered stackable doubling grid">
                         <div class="eight wide column">
                             <div class="owl-carousel" id="multiple-slider">
-                                <div class="item"><img src="{{ asset($user->image) }}" style = "width: 130px; height: 130px;"></div>
+                                <div class="item"><img src="{{ asset($wishtimes->image) }}" style = "width: 130px; height: 130px;"></div>
                             </div>
                         </div>
                     </div>

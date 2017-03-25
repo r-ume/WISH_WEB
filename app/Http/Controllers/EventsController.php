@@ -47,8 +47,8 @@ class EventsController extends Controller {
     
         $tweets = Tweet::all();
         $categories = Category::lists('name', 'id');
-        $categories_list = Category::all();
-        return view('events.create', compact('categories', 'user', 'tweets', 'categories_list'));
+        $taggedCategories = Category::all();
+        return view('events.create', compact('categories', 'user', 'tweets', 'taggedCategories'));
     }
 
     /**
