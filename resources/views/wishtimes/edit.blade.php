@@ -16,7 +16,6 @@
             $(document).ready(function(){
                 $('#categories_list').select2();
             });
-
         </script>
     </head>
 

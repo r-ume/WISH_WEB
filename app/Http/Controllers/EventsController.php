@@ -43,8 +43,12 @@ class EventsController extends Controller {
    * @return Response
    */
     public function create(){
+        $user = \Auth::user();
+    
+        $tweets = Tweet::all();
         $categories = Category::lists('name', 'id');
-        return view('events.create', compact('categories'));
+        $categories_list = Category::all();
+        return view('events.create', compact('categories', 'user', 'tweets', 'categories_list'));
     }
 
     /**
@@ -54,7 +58,8 @@ class EventsController extends Controller {
      */
     public function store(CreateEventRequest $request){
         $event = \Auth::user()->events()->create($request->all());
-
+        $event->categories()->sync($request->input('categories_list'));
+    
         $input = Input::all();
         $image = Input::file('image');
         $imageName = $input['image']->getClientOriginalName();
@@ -62,7 +67,7 @@ class EventsController extends Controller {
         Image::make($image->getRealPath())->resize(468, 468)->save($path);
         $event->image = 'uploads/'.$imageName;
         $event->save();
-
+    
         return redirect('events');
     }
 
@@ -76,7 +81,7 @@ class EventsController extends Controller {
         $tweets = Tweet::all();
         $categories = Category::all();
         $user = \Auth::user();
-    
+        
         return view('events.show', compact('event', 'tweets', 'categories', 'user'));
     }
 
