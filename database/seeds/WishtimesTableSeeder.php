@@ -12,12 +12,14 @@ class WishtimesTableSeeder extends Seeder{
                             'title' => 'first',
                             'content' => 'first article',
                             'image' => 'test.jpg',
+                            'isApproved' => true,
                             'user_id' => '1'
                         ],
                         [
                             'title' => 'second',
                             'content' => 'second article',
                             'image' => 'test2.jpg',
+                            'isApproved' => false,
                             'user_id' => '2'
                         ]
                 ]);
