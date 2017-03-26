@@ -168,7 +168,8 @@
 
     <!-- Page Contents -->
     <div class="pusher">
-        <div class="ui inverted vertical masthead center aligned segment" style = "background-image:url('{{ URL::asset('1.jpg') }}')" >
+        <div class="ui inverted vertical masthead center aligned segment"
+            style = "background-image:url('{{ URL::asset($image) }}'); background-size: cover;" >
             <div class="ui container">
                 <div class="ui large secondary inverted pointing menu">
                     <a class="toc item">
@@ -179,11 +180,13 @@
                     <a class="item" href = "/events">Events</a>
                     <a class="item" href = "/wishtimes">Wishtimes</a>
                     <a class="item" href = "/tweets">Tweets</a>
-                    @foreach(Auth::user()->roles as $role)
-                        @if($role->role == "RA")
-                            <a class="item" href = "/residents">Residents</a>
-                        @endif
-                    @endforeach
+                    @if(!Auth::guest())
+                        @foreach(Auth::user()->roles as $role)
+                            @if($role->role == "RA")
+                                <a class="item" href = "/residents">Residents</a>
+                            @endif
+                        @endforeach
+                    @endif
                     <div class="right item">
                         <a class="ui inverted button" href = "/auth/login">Log in</a>
                         <a class="ui inverted button" href = "/auth/register">Sign Up</a>
