@@ -66,13 +66,13 @@
 		;
 	</script>
 </head>
-<body>
+<body style = "background-image:url('{{ URL::asset($image) }}'); background-size: cover;" >
 
 <div class="ui middle aligned center aligned grid">
 	<div class="column">
 		<h2 class="ui teal image header">
 			<img src="assets/images/logo.png" class="image">
-			<div class="content">
+			<div class="content" style = "color: white;">
 				Log-in to your account
 			</div>
 		</h2>
