@@ -71,6 +71,10 @@
                                         <div class="ui blue right floated button">
                                             <a href = "{{action('WishtimesController@show', [$wishtime->id])}}" style ="color:white;">Read More</a>
                                         </div>
+                                        @if($wishtime->isApproved == 0) <div class="ui yellow right floated button">Pending</div>
+                                        @elseif ($wishtime->isApproved == 1) <div class="ui red right floated button">Rejected</div>
+                                        @elseif ($wishtime->isApproved == 2) <div class="ui blue right floated button">Approved</div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
