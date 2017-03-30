@@ -60,6 +60,7 @@ class WishtimesController extends Controller {
 	public function store(CreateWishTimesRequest $request)
 	{
         $wishtimes = \Auth::user()->wishtimes()->create($request->all());
+        $wishtimes->isApproved = 0;
         
         $input = Input::all();
         $image = Input::file('image');

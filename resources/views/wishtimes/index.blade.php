@@ -9,6 +9,8 @@
         <script type ="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
         <script type="text/javascript" src="javascript/easyng.js"></script>
+
+        <title>WISHTIMES作成</title>
     </head>
 
     <body>
