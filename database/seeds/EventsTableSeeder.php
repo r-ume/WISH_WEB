@@ -13,14 +13,18 @@ class EventsTableSeeder extends Seeder{
                 'title' => 'RA会議',
                 'description' => '',
                 'image' => 'test.jpg',
+                'start_date' => strtotime('2017-04-01'),
+                'end_date' => strtotime('2017-04-01'),
                 'user_id' => '1',
-                'created_at' => new Carbon('2017-04-03'),
-                'updated_at' => new Carbon('2017-04-03')
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ],
             [
                 'title' => '5階と9階の合コン',
                 'description' => '5階と9階の合コン',
                 'image' => 'test.jpg',
+                'start_date' => strtotime('2017-04-02'),
+                'end_date' => strtotime('2017-04-02'),
                 'user_id' => '2',
                 'created_at' => new Carbon('2017-04-04'),
                 'updated_at' => new Carbon('2017-04-04')
@@ -30,6 +34,8 @@ class EventsTableSeeder extends Seeder{
                 'description' => 'BBQ',
                 'image' => 'test.jpg',
                 'user_id' => '3',
+                'start_date' => strtotime('2017-04-03'),
+                'end_date' => strtotime('2017-04-03'),
                 'created_at' => new Carbon('2017-04-16'),
                 'updated_at' => new Carbon('2017-04-16')
             ]

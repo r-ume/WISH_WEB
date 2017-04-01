@@ -18,6 +18,8 @@ class CreateEventsTable extends Migration {
           $table->string('title');
           $table->text('description');
           $table->string('image');
+          $table->integer('start_date')->unsigned();
+          $table->integer('end_date')->unsigned();
           $table->integer('user_id')->unsigned();
           $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
           $table->timestamps();
