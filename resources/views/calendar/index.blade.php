@@ -48,7 +48,7 @@
                     <div class="ui fluid vertical menu moderns">
                         <a href="" class="header item">Recent Events</a>
                         @foreach($events as $event)
-                            <a href="" class="item">{{ $event->title }} {{ $event->created_at->format('Y-m-d') }}</a>
+                            <a href="" class="item">{{ $event->title }} {{ date('Y-m-d', $event->start_date) }}</a>
                         @endforeach
                     </div>
                     <div class="ui segments moderns">
