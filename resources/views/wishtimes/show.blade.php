@@ -47,9 +47,13 @@
                         <button type="submit" class="red ui button"
                             onclick = 'return confirm("Are you sure that you would like to delete this wishtime?");'>delete</button>
                     {!! Form::close() !!}
-                @else
+                @elseif($role == 'RA')
                     {!! Form::model($wishtimes, ['method' => 'POST', 'url' => 'wishtimes/approve/'.$wishtimes->id]) !!}
                         <button type="submit" class="ui primary button">Approve</button>
+                    {!! Form::close() !!}
+
+                    {!! Form::model($wishtimes, ['method' => 'POST', 'url' => 'wishtimes/disapprove/'.$wishtimes->id]) !!}
+                        <button type="submit" class="ui red button">Disapprove</button>
                     {!! Form::close() !!}
                 @endif
 

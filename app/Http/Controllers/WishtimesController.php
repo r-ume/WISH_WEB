@@ -30,9 +30,10 @@ class WishtimesController extends Controller {
         $pageNum = floor($wishtimesNum / $paginationNum);
         
         $user = \Auth::user();
-        if ($this->_findRole($user) == 'RA'){
+        $role = $this->_findRole($user);
+        if ($role == 'RA'){
             $wishtimes = Wishtimes::orderBy('created_at', 'DESC')->paginate($paginationNum);
-        }else if($this->_findRole($user) == 'resident'){
+        }else if($role == 'resident'){
             $wishtimes = Wishtimes::orderBy('created_at', 'DESC')
                 ->orWhere('isApproved', '=', 2)
                 ->orWhere('isApproved', '=', 0)
@@ -42,7 +43,7 @@ class WishtimesController extends Controller {
         $categories = Category::all();
         $tweets = Tweet::orderBy('created_at', 'DESC')->get();
         
-        return view('wishtimes.index', compact('user', 'wishtimes', 'categories', 'tweets', 'pageNum'));
+        return view('wishtimes.index', compact('user', 'wishtimes', 'categories', 'tweets', 'pageNum', 'role'));
 	}
 	
 	public function usersIndex(){
@@ -109,8 +110,9 @@ class WishtimesController extends Controller {
 	public function show(Wishtimes $wishtimes)
 	{
         $user = \Auth::user();
+        $role = $this->_findRole($user);
         $tweets = Tweet::all();
-        return view('wishtimes.show', compact('wishtimes', 'user', 'tweets'));
+        return view('wishtimes.show', compact('wishtimes', 'user', 'tweets', 'role'));
 	}
 
 	/**
@@ -158,6 +160,15 @@ class WishtimesController extends Controller {
     protected function _approveWishtimes(Wishtimes $wishtimes){
         if($wishtimes->isApproved == 0){
             $wishtimes->isApproved = 2;
+            $wishtimes->save();
+        }
+        
+        return redirect('wishtimes');
+    }
+    
+    protected function _disapproveWishtimes(Wishtimes $wishtimes){
+        if($wishtimes->isApproved == 0){
+            $wishtimes->isApproved = 1;
             $wishtimes->save();
         }
         
