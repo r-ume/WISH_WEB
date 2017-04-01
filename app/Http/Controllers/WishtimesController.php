@@ -44,6 +44,21 @@ class WishtimesController extends Controller {
         
         return view('wishtimes.index', compact('user', 'wishtimes', 'categories', 'tweets', 'pageNum'));
 	}
+	
+	public function usersIndex(){
+        $paginationNum = 3;
+        $allWishtimes = Wishtimes::all();
+        $wishtimesNum = $allWishtimes->count();
+        $pageNum = floor($wishtimesNum / $paginationNum);
+        
+        $user = \Auth::user();
+        $wishtimes = Wishtimes::where('user_id', '=', $user->id)->paginate($paginationNum);
+        
+        $categories = Category::all();
+        $tweets = Tweet::orderBy('created_at', 'DESC')->get();
+        
+        return view('wishtimes.index', compact('user', 'wishtimes', 'categories', 'tweets', 'pageNum'));
+    }
 
 	/**
 	 * Show the form for creating a new resource.

@@ -44,6 +44,9 @@
                         <a href = "/wishtimes/create">
                             <button type="submit" class="ui primary button">create a new wishtimes</button>
                         </a>
+                        <a href = "/wishtimes/yours">
+                            <button type="submit" class="ui primary button">your wishtimes</button>
+                        </a>
                     <div align="center">
                         <div class="ui items">
                             @foreach($wishtimes as $wishtime)
