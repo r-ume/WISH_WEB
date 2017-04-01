@@ -33,6 +33,7 @@ Route::get('/wishtimes', 'WishtimesController@index');
 Route::get('/wishtimes/yours', 'WishtimesController@usersIndex');
 Route::get('/wishtimes/{wishtimes}', 'WishtimesController@show');
 Route::delete('/wishtimes/{wishtimes}', 'WishtimesController@destroy');
+Route::post('/wishtimes/approve/{wishtimes}', 'WishtimesController@_approveWishtimes');
 
 
 Route::post('/myprofile/upload', 'UsersController@upload');

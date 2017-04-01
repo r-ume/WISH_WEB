@@ -30,9 +30,9 @@ class WishtimesController extends Controller {
         $pageNum = floor($wishtimesNum / $paginationNum);
         
         $user = \Auth::user();
-        if ($this->findRole($user) == 'RA'){
+        if ($this->_findRole($user) == 'RA'){
             $wishtimes = Wishtimes::orderBy('created_at', 'DESC')->paginate($paginationNum);
-        }else if($this->findRole($user) == 'resident'){
+        }else if($this->_findRole($user) == 'resident'){
             $wishtimes = Wishtimes::orderBy('created_at', 'DESC')
                 ->orWhere('isApproved', '=', 2)
                 ->orWhere('isApproved', '=', 0)
@@ -155,7 +155,16 @@ class WishtimesController extends Controller {
         return redirect('wishtimes');
 	}
 	
-	protected function findRole($user){
+    protected function _approveWishtimes(Wishtimes $wishtimes){
+        if($wishtimes->isApproved == 0){
+            $wishtimes->isApproved = 2;
+            $wishtimes->save();
+        }
+        
+        return redirect('wishtimes');
+    }
+    
+	protected function _findRole($user){
 	    foreach($user->roles as $role){
 	        $role_name = $role->role;
         }

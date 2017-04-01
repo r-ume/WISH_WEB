@@ -38,24 +38,27 @@
         <div class="ui stackable doubling grid">
             <!-- Middle Content -->
             <div class="twelve wide column">
-                {!! Form::model($wishtimes, ['method' => 'GET', 'url' => 'wishtimes/edit/'.$wishtimes->id]) !!}
-                    <button type="submit" class="ui primary button">edit</button>
-                {!! Form::close() !!}
+                @if($wishtimes->user_id == $user->id)
+                    {!! Form::model($wishtimes, ['method' => 'GET', 'url' => 'wishtimes/edit/'.$wishtimes->id]) !!}
+                        <button type="submit" class="ui primary button">edit</button>
+                    {!! Form::close() !!}
 
-                {!! Form::model($wishtimes, ['method' => 'DELETE', 'url' => 'wishtimes/'.$wishtimes->id]) !!}
-                    <button type="submit" class="red ui button"
-                        onclick = 'return confirm("Are you sure that you would like to delete this wishtime?");'>delete</button>
-                {!! Form::close() !!}
+                    {!! Form::model($wishtimes, ['method' => 'DELETE', 'url' => 'wishtimes/'.$wishtimes->id]) !!}
+                        <button type="submit" class="red ui button"
+                            onclick = 'return confirm("Are you sure that you would like to delete this wishtime?");'>delete</button>
+                    {!! Form::close() !!}
+                @else
+                    {!! Form::model($wishtimes, ['method' => 'POST', 'url' => 'wishtimes/approve/'.$wishtimes->id]) !!}
+                        <button type="submit" class="ui primary button">Approve</button>
+                    {!! Form::close() !!}
+                @endif
 
                 <div class="ui horizontal divider"><h2>{{ $wishtimes->title }}</h2></div>
 
                 <div align="center">
                     <p>{{ $wishtimes->content }}</p>
-                    {{--<blockquote><h3>"Berkarya, Bersama, Berjaya"</h3></blockquote>--}}
                 </div>
                 <br>
-                {{--<div class="ui horizontal divider">Sample History</div>--}}
-                {{--<p></p>--}}
                 <br>
                 <div class="ui horizontal divider">Photos</div>
                 <!-- Slider Container -->
