@@ -23,14 +23,22 @@ class WishtimesController extends Controller {
 	 * @return Response
 	 */
 	public function index()
-	{
-	    $paginationNum = 3;
+    {
+        $paginationNum = 3;
         $allWishtimes = Wishtimes::all();
         $wishtimesNum = $allWishtimes->count();
         $pageNum = floor($wishtimesNum / $paginationNum);
         
         $user = \Auth::user();
-        $wishtimes = Wishtimes::orderBy('created_at', 'DESC')->paginate($paginationNum);
+        if ($this->findRole($user) == 'RA'){
+            $wishtimes = Wishtimes::orderBy('created_at', 'DESC')->paginate($paginationNum);
+        }else if($this->findRole($user) == 'resident'){
+            $wishtimes = Wishtimes::orderBy('created_at', 'DESC')
+                ->orWhere('isApproved', '=', 2)
+                ->orWhere('isApproved', '=', 0)
+                ->paginate($paginationNum);
+        }
+        
         $categories = Category::all();
         $tweets = Tweet::orderBy('created_at', 'DESC')->get();
         
@@ -131,4 +139,12 @@ class WishtimesController extends Controller {
         
         return redirect('wishtimes');
 	}
+	
+	protected function findRole($user){
+	    foreach($user->roles as $role){
+	        $role_name = $role->role;
+        }
+        
+        return $role_name;
+    }
 }
