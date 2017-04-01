@@ -6,9 +6,10 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "5.0.*",
-        "laravelcollective/html": "~5.0",
+		"laravelcollective/html": "~5.0",
 		"intervention/image": "^2.3",
-		"wangaz/laravel-semantic-ui-css": "^1.2"
+		"wangaz/laravel-semantic-ui-css": "^1.2",
+		"maddhatter/laravel-fullcalendar": "~1.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
