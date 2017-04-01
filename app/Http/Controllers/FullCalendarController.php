@@ -15,38 +15,23 @@ class FullCalendarController extends Controller{
 	public function index(){
 
 	    $user = Auth::user();
-        $events = [];
+        $calendarEvents =[];
+        $events = Event::orderBy('created_at', 'DESC')->get();
 
-        $events[] = Calendar::event(
-            "BBQ", // event title
-            true, // full day event
-            new \DateTime('2017-04-16'), // start time
-            new \DateTime('2017-04-16'), // end time
-            1
-        );
+        foreach($events as $event){
+            $calendarEvents[] = Calendar::event(
+                $event->title,
+                true,
+                $event->created_at,
+                $event->created_at,
+                $event->id
+            );
+        }
 
-        $events[] = Calendar::event(
-            "RA 会議",
-            true,
-            new \DateTime('2017-04-03'),
-            new \DateTime('2017-04-03'),
-            2
-        );
-
-        $events[] = Calendar::event(
-            "5階と9階の合コン",
-            true,
-            new \DateTime('2017-04-04'),
-            new \DateTime('2017-04-04'),
-            3
-        );
-
-        $calendar = Calendar::addEvents($events)
+        $calendar = Calendar::addEvents($calendarEvents)
                 ->setOptions([
                     'firstDay' => 1
                 ]);
-
-        $events = Event::orderBy('created_at', 'DESC')->get();
 
 //        $joiningEvents = Event::orderBy
 
