@@ -12,6 +12,10 @@ class Event extends Model {
         return $this->belongsTo('App\User');
     }
 
+    public function users(){
+        return $this->belongsToMany('App\User', 'events_users', 'event_id', 'user_id')->withTimestamps();
+    }
+
     public function categories(){
         return $this->belongsToMany('App\Category', 'categories_events', 'event_id', 'category_id')->withTimestamps();
     }
