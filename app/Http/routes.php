@@ -50,6 +50,7 @@ Route::get('/events/create', 'EventsController@create');
 Route::get('/events/{event}', 'EventsController@show');
 Route::get('/events', 'EventsController@index');
 Route::delete('/events/{event}', 'EventsController@destroy');
+Route::post('/events/attend/{event}', 'EventsController@attend');
 
 Route::get('/api/tweets', 'API\APITweetController@index');
 

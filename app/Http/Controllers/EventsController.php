@@ -81,8 +81,17 @@ class EventsController extends Controller {
         $tweets = Tweet::all();
         $categories = Category::all();
         $user = \Auth::user();
-        
-        return view('events.show', compact('event', 'tweets', 'categories', 'user'));
+
+        $attend_users = [];
+        $attendance = false;
+        foreach($event->users as $attend_user){
+            if($user->id == $attend_user->id){
+                $attend_users[] = $attend_user->id;
+                $attendance = true;
+            }
+        }
+
+        return view('events.show', compact('event', 'tweets', 'categories', 'user', 'attendance'));
     }
 
     /**
@@ -118,10 +127,18 @@ class EventsController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy(Event $event)
-    {
+    public function destroy(Event $event){
         $event->delete();
 
         return redirect('events');
     }
+
+    public function attend(Event $event, Request $request){
+        if($event){
+            $event->users()->attach((array)$request->input('user_id'));
+        }
+
+        return redirect('events');
+    }
+
 }
