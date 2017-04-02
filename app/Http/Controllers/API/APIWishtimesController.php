@@ -16,7 +16,7 @@ class APIWishtimesController extends Controller {
 	 */
 	public function index()
 	{
-		$wishtimes = Wishtimes::all();
+		$wishtimes = Wishtimes::with('categories')->get();
 
         return response()->json($wishtimes);
 	}
