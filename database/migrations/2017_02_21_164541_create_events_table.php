@@ -18,8 +18,10 @@ class CreateEventsTable extends Migration {
           $table->string('title');
           $table->text('description');
           $table->string('image');
-          $table->integer('start_date')->unsigned();
-          $table->integer('end_date')->unsigned();
+          $table->integer('start_at')->unsigned();
+          $table->integer('end_at')->unsigned();
+          $table->boolean('isAllDay');
+          $table->integer('max_people');
           $table->integer('user_id')->unsigned();
           $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
           $table->timestamps();
