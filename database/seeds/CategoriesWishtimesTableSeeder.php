@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class CategoriesWistimesTableSeeder extends Seeder{
+class CategoriesWishtimesTableSeeder extends Seeder{
     public function run(){
         DB::table('categories_wishtimes')->truncate();
 
