@@ -19,4 +19,18 @@ class Event extends Model {
     public function getCategoriesListAttribute(){
         return $this->categories->lists('id');
     }
+
+    public function usersCount(){
+        return $this->belongsToMany('App\User', 'events_users')
+            ->selectRaw('count(users.id) as aggregate')
+            ->groupBy('event_id');
+    }
+
+    public function getUsersCountAttribute(){
+        if ( ! array_key_exists('usersCount', $this->relations)) $this->load('usersCount');
+
+        $related = $this->getRelation('usersCount')->first();
+
+        return ($related) ? $related->aggregate : 0;
+    }
 }

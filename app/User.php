@@ -50,4 +50,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function events(){
         return $this->hasMany('App\Event');
     }
+
+    public function eventsCount(){
+        return $this->belongsToMany('App\Event')
+            ->selectRaw('count(users.id) as aggregate')
+            ->groupBy('event_id');
+    }
+
+    public function getUsersCountAttribute(){
+        if ( ! array_key_exists('usersCount', $this->relations)) $this->load('usersCount');
+
+        $related = $this->getRelation('usersCount')->first();
+
+        return ($related) ? $related->aggregate : 0;
+    }
 }
