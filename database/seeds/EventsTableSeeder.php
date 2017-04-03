@@ -42,8 +42,8 @@ class EventsTableSeeder extends Seeder{
                 'max_people' => 6,
                 'isAllDay' => false,
                 'user_id' => '3',
-                'created_at' => new Carbon('2017-04-16'),
-                'updated_at' => new Carbon('2017-04-16')
+                'created_at' => new Carbon('2017-04-03'),
+                'updated_at' => new Carbon('2017-04-03')
             ]
         ]);
     }
