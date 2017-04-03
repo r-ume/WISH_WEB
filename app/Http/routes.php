@@ -56,6 +56,8 @@ Route::get('/api/tweets', 'API\APITweetController@index');
 
 Route::get('/api/wishtimes', 'API\APIWishtimesController@index');
 
+Route::get('/api/events', 'API\APIEventsController@index');
+
 Route::get('/semantic/login', 'SemanticController@semanticLogin');
 Route::get('/', 'SemanticController@semantic');
 
