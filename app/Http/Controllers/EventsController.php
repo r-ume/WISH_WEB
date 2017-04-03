@@ -5,10 +5,12 @@ use App\Http\Controllers\Controller;
 use App\Event;
 use App\Category;
 use App\Tweet;
+use App\User;
 
 use App\Http\Requests\CreateEventRequest;
 use Illuminate\Http\Request;
 
+use \Auth as Auth;
 use \Input as Input;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -43,12 +45,12 @@ class EventsController extends Controller {
    * @return Response
    */
     public function create(){
-        $user = \Auth::user();
+        $user = Auth::user();
     
         $tweets = Tweet::all();
         $categories = Category::lists('name', 'id');
-        $taggedCategories = Category::all();
-        return view('events.create', compact('categories', 'user', 'tweets', 'taggedCategories'));
+        $users = User::get()->lists('full_name', 'id');
+        return view('events.create', compact('categories', 'user', 'tweets', 'users'));
     }
 
     /**
@@ -59,6 +61,7 @@ class EventsController extends Controller {
     public function store(CreateEventRequest $request){
         $event = \Auth::user()->events()->create($request->all());
         $event->categories()->sync($request->input('categories_list'));
+        $event->joiningUsers()->sync($request->input('users_list'));
     
         $input = Input::all();
         $image = Input::file('image');
@@ -99,7 +102,7 @@ class EventsController extends Controller {
      * @return Response
      */
     public function edit(Event $event){
-        $user = \Auth::user();
+        $user = Auth::user();
         $categories = Category::lists('name', 'id');
         $tweets = Tweet::orderBy('created_at', 'DESC')->get();
         return view('events.edit', compact('event', 'categories', 'user', 'tweets'));

@@ -17,6 +17,7 @@
         <script type = "text/javascript">
             $(document).ready(function(){
                 $('#categories_list').select2();
+                $('#users_list').select2();
             });
         </script>
     </head>
@@ -67,12 +68,32 @@
                             {!! Form::textarea('description', null, ['placeholder' => 'Description']) !!}
                         </div>
                         <div class = "field">
+                            {!! Form::label('max_people', 'Max People:') !!}
+                            {!! Form::number('max_people', null) !!}
+                        </div>
+                        <div class = "field">
+                            {!! Form::label('start_at', 'Start At:') !!}
+                            {!! Form::input('start_at', null, \Carbon\Carbon::now()) !!}
+                        </div>
+                        <div class = "field">
+                            {!! Form::label('end_at', 'End At:') !!}
+                            {!! Form::input('end_at', null, \Carbon\Carbon::now()) !!}
+                        </div>
+                        <div class = "field">
+                            {!! Form::label('isAllDay', 'IsAllDay:') !!}
+                            {!! Form::checkbox('isAllDay', 1) !!}
+                        </div>
+                        <div class = "field">
                             {!! Form::label('categories_list', 'Categories:') !!}
                             {!! Form::select('categories_list[]', $categories, null, ['id' => 'categories_list', 'multiple']) !!}
                         </div>
                         <div class = "field">
                             {!! Form::label('image', '画像アップロード', ['class' => 'ui blue button']) !!}
                             {!! Form::file('image') !!}
+                        </div>
+                        <div class = "field">
+                            {!! Form::label('users_list', 'Joiners:') !!}
+                            {!! Form::select('users_list[]', $users, null, ['id' => 'users_list', 'multiple']) !!}
                         </div>
                         <div class = "field">
                             {!! Form::submit('make a new event', ['class' => 'ui blue button']) !!}
@@ -82,12 +103,6 @@
 
                 <!-- Right Sidebar -->
                 <div class="four wide column">
-                    <div class="ui fluid vertical menu moderns">
-                        <a href="" class="header item">Category</a>
-                        @foreach($allCategories as $category)
-                            <a href="" class="item">{{ $category->name }}</a>
-                        @endforeach
-                    </div>
                     <div class="ui segments moderns">
                         <div class="ui header segment">
                             Tweets
