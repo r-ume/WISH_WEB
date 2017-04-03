@@ -8,29 +8,29 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
-	use Authenticatable, CanResetPassword;
+    use Authenticatable, CanResetPassword;
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
+    /**
+    * The database table used by the model.
+    *
+    * @var string
+    */
+    protected $table = 'users';
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-	protected $fillable = ['first_name', 'last_name', 'sex', 'language_id', 'floor', 'email', 'password'];
+    /**
+    * The attributes that are mass assignable.
+    *
+    * @var array
+    */
+    protected $fillable = ['first_name', 'last_name', 'sex', 'language_id', 'floor', 'email', 'password'];
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = ['password', 'remember_token'];
-    
+    /**
+    * The attributes excluded from the model's JSON form.
+    *
+    * @var array
+    */
+    protected $hidden = ['password', 'remember_token'];
+
     public function wishtimes(){
         return $this->hasMany('App\Wishtimes');
     }
@@ -68,5 +68,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $related = $this->getRelation('usersCount')->first();
 
         return ($related) ? $related->aggregate : 0;
+    }
+
+    public function getFullNameAttribute(){
+        return $this->first_name . ' ' . $this->last_name;
     }
 }
