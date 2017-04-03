@@ -43,20 +43,22 @@
                 <div class="twelve wide column">
                     @if($user->id == $event->user_id)
                         {!! Form::model($event, ['method' => 'GET', 'url' => 'events/edit/'.$event->id]) !!}
-                        <button type="submit" class="ui primary button">edit</button>
+                            <button type="submit" class="ui primary button">edit</button>
                         {!! Form::close() !!}
 
                         {!! Form::model($event, ['method' => 'DELETE', 'url' => 'events/'.$event->id]) !!}
-                        <button type="submit" class="red ui button"
-                                onclick = 'return confirm("Are you sure that you would like to delete this event?");'>delete</button>
+                            <button type="submit" class="red ui button"
+                                    onclick = 'return confirm("Are you sure that you would like to delete this event?");'>delete</button>
                         {!! Form::close() !!}
                     @elseif($attendance)
-                        <button class="ui yellow button">Attendance Decided</button>
+                            <span class="ui yellow button">Attendance Decided</span>
+                    @elseif($event->usersCount >= $event->max_people)
+                            <span class="ui red button">Attendance Max</span>
                     @else
-                        {!! Form::model($event, ['method' => 'POST', 'url' => 'events/attend/'.$event->id]) !!}
-                        {!! Form::hidden('user_id', $user->id) !!}
-                            <button type="submit" class="ui yellow button">Attend</button>
-                        {!! Form::close() !!}
+                            {!! Form::model($event, ['method' => 'POST', 'url' => 'events/attend/'.$event->id]) !!}
+                                {!! Form::hidden('user_id', $user->id) !!}
+                                <button type="submit" class="ui yellow button">Attend</button>
+                            {!! Form::close() !!}
                     @endif
 
                     <div class="ui horizontal divider"><h2>{{ $event->title }}</h2></div>
