@@ -128,7 +128,23 @@ class EventsController extends Controller {
     public function update(CreateEventRequest $request, Event $event){
         $event->update($request->all());
 
-        $event->categories()->sync($request->input('categories_list'));
+        if($request->input('categories_list')){
+            $event->categories()->sync($request->input('categories_list'));
+        }
+
+        if($request->input('categories_list')){
+            $event->categories()->sync($request->input('categories_list'));
+        }
+
+        $input = Input::all();
+        $image = Input::file('image');
+        if($image){
+            $imageName = $input['image']->getClientOriginalName();
+            $path = public_path('uploads/'.$imageName);
+            Image::make($image->getRealPath())->resize(468, 468)->save($path);
+            $event->image = 'uploads/'.$imageName;
+            $event->save();
+        }
 
         return redirect('events');
     }
