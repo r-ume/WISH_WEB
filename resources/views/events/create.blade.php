@@ -73,11 +73,11 @@
                         </div>
                         <div class = "field">
                             {!! Form::label('start_at', 'Start At:') !!}
-                            {!! Form::input('start_at', null, \Carbon\Carbon::now()) !!}
+                            {!! Form::input('start_at', null, \Carbon\Carbon::now(), ['name' => 'start_at']) !!}
                         </div>
                         <div class = "field">
                             {!! Form::label('end_at', 'End At:') !!}
-                            {!! Form::input('end_at', null, \Carbon\Carbon::now()) !!}
+                            {!! Form::input('end_at', null, \Carbon\Carbon::now(), ['name' => 'end_at']) !!}
                         </div>
                         <div class = "field">
                             {!! Form::label('isAllDay', 'IsAllDay:') !!}

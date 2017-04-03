@@ -20,11 +20,11 @@ class EventsController extends Controller {
         $this->middleware('auth');
     }
 
-      /**
-       * Display a listing of the resource.
-       *
-       * @return Response
-       */
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
     public function index(){
         $paginationNum = 3;
         $allEvents = Event::all();
@@ -39,11 +39,11 @@ class EventsController extends Controller {
         return view('events.index', compact('events', 'user', 'pageNum', 'categories', 'tweets'));
     }
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
     public function create(){
         $user = Auth::user();
     
@@ -59,18 +59,28 @@ class EventsController extends Controller {
      * @return Response
      */
     public function store(CreateEventRequest $request){
+        $request['start_at'] = time($request['start_at']);
+        $request['end_at'] = time($request['end_at']);
+
         $event = \Auth::user()->events()->create($request->all());
-        $event->categories()->sync($request->input('categories_list'));
-        $event->joiningUsers()->sync($request->input('users_list'));
-    
+        if($request->input('categories_list')){
+            $event->categories()->sync($request->input('categories_list'));
+        }
+
+        if($request->input('users_list')){
+            $event->joiningUsers()->sync($request->input('users_list'));
+        }
+
         $input = Input::all();
         $image = Input::file('image');
-        $imageName = $input['image']->getClientOriginalName();
-        $path = public_path('uploads/'.$imageName);
-        Image::make($image->getRealPath())->resize(468, 468)->save($path);
-        $event->image = 'uploads/'.$imageName;
-        $event->save();
-    
+        if($image){
+            $imageName = $input['image']->getClientOriginalName();
+            $path = public_path('uploads/'.$imageName);
+            Image::make($image->getRealPath())->resize(468, 468)->save($path);
+            $event->image = 'uploads/'.$imageName;
+            $event->save();
+        }
+
         return redirect('events');
     }
 
@@ -105,7 +115,8 @@ class EventsController extends Controller {
         $user = Auth::user();
         $categories = Category::lists('name', 'id');
         $tweets = Tweet::orderBy('created_at', 'DESC')->get();
-        return view('events.edit', compact('event', 'categories', 'user', 'tweets'));
+        $users = User::get()->lists('full_name', 'id');
+        return view('events.edit', compact('event', 'categories', 'user', 'tweets', 'users'));
     }
 
     /**
@@ -141,5 +152,4 @@ class EventsController extends Controller {
 
         return redirect('events');
     }
-
 }
