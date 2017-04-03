@@ -84,7 +84,7 @@ class EventsController extends Controller {
 
         $attend_users = [];
         $attendance = false;
-        foreach($event->users as $attend_user){
+        foreach($event->joiningUsers as $attend_user){
             if($user->id == $attend_user->id){
                 $attend_users[] = $attend_user->id;
                 $attendance = true;

@@ -8,11 +8,11 @@ class Event extends Model {
 
     protected $fillable = ['title', 'description', 'image'];
 
-    public function user(){
-        return $this->belongsTo('App\User');
+    public function creator(){
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 
-    public function users(){
+    public function joiningUsers(){
         return $this->belongsToMany('App\User', 'events_users', 'event_id', 'user_id')->withTimestamps();
     }
 

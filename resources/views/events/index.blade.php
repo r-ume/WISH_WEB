@@ -63,7 +63,7 @@
                                                 {{ $category->name }}
                                             @endforeach
                                             <i class="user icon"></i>
-                                            Created by {{ $event->user->first_name }} {{ $event->user->last_name }}
+                                            Created by {{ $event->creator->first_name }} {{ $event->creator->last_name }}
                                             <i class = "users icon"></i>
                                             Number of People Joining / Max: {{ $event->usersCount }} / {{ $event->max_people }}
                                         </span>
