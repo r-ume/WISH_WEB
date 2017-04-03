@@ -20,11 +20,10 @@ class CreateEventRequest extends Request {
     */
     public function rules(){
         return [
-            'title' => 'required|unique|max:30',
+            'title' => 'required|max:30',
             'description' => 'required',
             'start_at' => 'required',
             'end_at' => 'required',
-            'isAllDay' => 'required',
             'max_people' => 'required',
         ];
     }
