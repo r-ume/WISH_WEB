@@ -82,11 +82,9 @@ class EventsController extends Controller {
         $categories = Category::all();
         $user = \Auth::user();
 
-        $attend_users = [];
         $attendance = false;
         foreach($event->joiningUsers as $attend_user){
             if($user->id == $attend_user->id){
-                $attend_users[] = $attend_user->id;
                 $attendance = true;
             }
         }
@@ -135,7 +133,7 @@ class EventsController extends Controller {
 
     public function attend(Event $event, Request $request){
         if($event){
-            $event->users()->attach((array)$request->input('user_id'));
+            $event->joiningUsers()->attach((array)$request->input('user_id'));
         }
 
         return redirect('events');

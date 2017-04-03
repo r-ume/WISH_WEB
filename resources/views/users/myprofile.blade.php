@@ -86,11 +86,11 @@
                     @foreach($events as $event)
                         <div class="event">
                             <div class="label">
-                                <img src= {{ $event->user->image }}>
+                                <img src= {{ $event->creator->image }}>
                             </div>
                             <div class="content">
                                 <div class="summary">
-                                    <a>{{ $event->user->first_name }} {{ $event->user->last_name }}</a> made a new status
+                                    <a>{{ $event->creator->first_name }} {{ $event->creator->last_name }}</a> made a new status
                                     <div class="date">{{ $event->created_at }}</div>
                                 </div>
                                 <div class="extra text">
