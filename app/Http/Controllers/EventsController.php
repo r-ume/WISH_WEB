@@ -32,7 +32,7 @@ class EventsController extends Controller {
         $pageNum = floor($eventsNum / $paginationNum);
         
         $user = \Auth::user();
-        $events = Event::all();
+        $events = Event::orderBy('created_at', 'DESC')->paginate($paginationNum);
         $categories = Category::all();
         $tweets = Tweet::orderBy('created_at', 'DESC')->get();
     
