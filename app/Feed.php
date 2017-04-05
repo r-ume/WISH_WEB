@@ -6,13 +6,13 @@ class Feed extends Model {
     
     protected $table = 'feeds';
     
-    protected $fillable = ['title', 'content', 'user_id'];
+    protected $fillable = ['title', 'content'];
     
     public function categories(){
-        return $this->belongsToMany('App\Category')->withTimestamps();
+        return $this->belongsToMany('App\Category', 'categories_feeds', 'feed_id', 'category_id')->withTimestamps();
     }
     
     public function user(){
-        return $this->belongsTo('App\User')->withTimestamps();
+        return $this->belongsTo('App\User');
     }
 }

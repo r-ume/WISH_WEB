@@ -52,6 +52,9 @@ Route::get('/events', 'EventsController@index');
 Route::delete('/events/{event}', 'EventsController@destroy');
 Route::post('/events/attend/{event}', 'EventsController@attend');
 
+Route::get('/feeds/{feed}', 'FeedsController@show');
+Route::get('/feeds', 'FeedsController@index');
+
 Route::get('/api/tweets', 'API\APITweetController@index');
 
 Route::get('/api/wishtimes', 'API\APIWishtimesController@index');
