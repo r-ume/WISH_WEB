@@ -52,10 +52,13 @@ Route::get('/events', 'EventsController@index');
 Route::delete('/events/{event}', 'EventsController@destroy');
 Route::post('/events/attend/{event}', 'EventsController@attend');
 
+Route::patch('/feeds/{feed}', 'FeedsController@update');
+Route::get('/feeds/edit/{feed}', 'FeedsController@edit');
 Route::post('/feeds/', 'FeedsController@store');
 Route::get('/feeds/create', 'FeedsController@create');
 Route::get('/feeds/{feed}', 'FeedsController@show');
 Route::get('/feeds', 'FeedsController@index');
+Route::delete('/feeds/{feed}', 'FeedsController@destroy');
 
 Route::get('/api/tweets', 'API\APITweetController@index');
 

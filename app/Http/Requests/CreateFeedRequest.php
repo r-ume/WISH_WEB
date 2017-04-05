@@ -20,7 +20,7 @@ class CreateFeedRequest extends Request {
      */
     public function rules(){
         return [
-            'title' => 'required|unique:feeds',
+            'title' => 'required',
             'content' => 'required',
         ];
     }

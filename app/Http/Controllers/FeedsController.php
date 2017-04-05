@@ -74,7 +74,7 @@ class FeedsController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  object  $feed
      * @return Response
      */
     public function show(Feed $feed)
@@ -87,34 +87,43 @@ class FeedsController extends Controller {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  object  $feed
      * @return Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Feed $feed){
+        $user = $this->user;
+        $tweets = $this->tweets;
+        $listedCategories = $this->listedCategories;
+        return view('feeds.edit', compact('feed', 'user', 'tweets', 'listedCategories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  object  $feed
      * @return Response
      */
-    public function update($id)
-    {
-        //
+    public function update(Feed $feed, CreateFeedRequest $request){
+        $feed->update($request->all());
+
+        if(is_null($request->input('categories_list'))){
+            $feed->categories()->detach();
+        }else{
+            $feed->categories()->sync($request->input('categories_list'));
+        }
+        return redirect('feeds');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  object  $feed
      * @return Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Feed $feed){
+        $feed->delete();
+
+        return redirect('feeds');
     }
 
 }
