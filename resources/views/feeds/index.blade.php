@@ -66,7 +66,7 @@
                                                 {{ $category->name }}
                                             @endforeach
                                             <i class="user icon"></i>
-                                            {{ $feed->user->full_name }}
+                                            {{ $feed->creator->full_name }}
                                         </span>
                                 </div>
                                 <div class="description" align="justify">

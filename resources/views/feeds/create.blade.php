@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-        <link rel = "stylesheet" type = "text/css" href = "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.css" />
-        <script type ="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-        <script type="text/javascript" src="javascript/easyng.js"></script>
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link rel = "stylesheet" type = "text/css" href = "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.css" />
+    <script type ="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script type="text/javascript" src="javascript/easyng.js"></script>
 
-    <body>
-    <!-- Navbar fixed top area -->
+    <title>WISH_WEB Feeds</title>
+
+    <script type = "text/javascript">
+        $(document).ready(function(){
+            $('#categories_list').select2();
+        });
+    </script>
+</head>
+
+<body>
     <div class="ui large top hidden menu">
         <div class="ui container">
             <a href="/myprofile" class="header item">
@@ -39,36 +48,44 @@
         <div class="ui stackable doubling grid">
             <!-- Middle Content -->
             <div class="twelve wide column">
-                @if($feed->user_id == $user->id)
-                    {!! Form::model($feed, ['method' => 'GET', 'url' => 'feeds/edit/'.$feed->id]) !!}
-                        <button type="submit" class="ui primary button">edit</button>
-                    {!! Form::close() !!}
-
-                    {!! Form::model($feed, ['method' => 'DELETE', 'url' => 'feeds/'.$feed->id]) !!}
-                        <button type="submit" class="red ui button"
-                            onclick = 'return confirm("Are you sure that you would like to delete this wishtime?");'>delete</button>
-                    {!! Form::close() !!}
+                <h1>Create page for feeds</h1>
+                @if($errors->any())
+                    <ul class = "alert alert-danger">
+                        @foreach($errors->all() as $error)
+                            <li> {{ $error }}</li>
+                        @endforeach
+                    </ul>
                 @endif
 
-                <div class="ui horizontal divider"><h2>{{ $feed->title }}</h2></div>
+                {!! Form::open(['url' => 'feeds', 'files' => true, 'class' => 'ui form']) !!}
+                    <div class = "field">
+                        {!! Form::label('title', 'Title:') !!}
+                        {!! Form::text('title', null, ['placeholder' => 'Title']) !!}
+                    </div>
+                    <div class = "field">
+                        {!! Form::label('content', 'Content:') !!}
+                        {!! Form::textarea('content', null, ['placeholder' => 'Content']) !!}
+                    </div>
+                    <div class = "field">
+                        {!! Form::label('categories_list', 'Categories:') !!}
+                        {!! Form::select('categories_list[]', $listedCategories, null, ['id' => 'categories_list', 'multiple']) !!}
+                    </div>
+                    <div class = "field">
+                        {!! Form::submit('make a new feeds', ['class' => 'ui blue button']) !!}
+                    </div>
+                {!! Form::close() !!}
+                <br />
 
-                <div align="center">
-                    <p>{{ $feed->content }}</p>
-                </div>
-                <br>
-                <br>
             </div>
 
+            <!-- Right Sidebar -->
             <div class="four wide column">
                 <div class="ui fluid vertical menu moderns">
                     <a href="" class="header item">Category</a>
-                        @unless($feed->categories->isEmpty())
-                            @foreach($feed->categories as $category)
-                                <a href="" class="item">{{ $category->name }}</a>
-                            @endforeach
-                        @endunless
+                    @foreach($categories as $category)
+                        <a href="" class="item">{{ $category->name }}</a>
+                    @endforeach
                 </div>
-
                 <div class="ui segments moderns">
                     <div class="ui header segment">
                         Tweets
@@ -77,7 +94,9 @@
                         <div class="owl-carousel" id="single-slider">
                             @foreach($tweets as $tweet)
                                 <div class="item">
+                                    {{--<p><img class="ui rounded image" src="assets/img/400x400.png"></p>--}}
                                     <div align="justify">
+                                        {{--<div class="ui header">{{ $tweet->tweet }}</div>--}}
                                         <p>{{ $tweet->tweet }} <br /><i class="calendar icon"></i>{{ $tweet->created_at }}</p>
                                     </div>
                                 </div>
@@ -89,7 +108,7 @@
         </div>
     </div>
 
-    <!-- Footer area -->
+    {{--<!-- Footer area -->--}}
     <div class="ui inverted vertical footer segment">
         <div class="ui container">
             <div class="ui stackable inverted divided equal height stackable grid">

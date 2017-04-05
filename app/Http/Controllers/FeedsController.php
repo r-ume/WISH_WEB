@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateFeedRequest;
 
 use App\Feed;
 use App\Category;
@@ -17,12 +18,14 @@ class FeedsController extends Controller {
     protected $categories;
     protected $tweets;
     protected $paginationNum;
+    protected $listedCategories;
 
     public function __construct(){
         $this->middleware('auth');
         $this->user = Auth::user();
         $this->feeds = Feed::all();
         $this->categories = Category::all();
+        $this->listedCategories = Category::lists('name', 'id');
         $this->tweets = Tweet::all();
         $this->paginationNum = 5;
     }
@@ -49,9 +52,12 @@ class FeedsController extends Controller {
      *
      * @return Response
      */
-    public function create()
-    {
-        //
+    public function create(){
+        $user = $this->user;
+        $categories = $this->categories;
+        $tweets = $this->tweets;
+        $listedCategories = $this->listedCategories;
+        return view('feeds.create', compact('user', 'categories', 'tweets', 'listedCategories'));
     }
 
     /**
@@ -59,9 +65,10 @@ class FeedsController extends Controller {
      *
      * @return Response
      */
-    public function store()
-    {
-        //
+    public function store(CreateFeedRequest $request){
+        $feed = Auth::user()->feed()->create($request->all());
+        $feed->categories()->sync($request->input('categories_list'));
+        return redirect('feeds');
     }
 
     /**

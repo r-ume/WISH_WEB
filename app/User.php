@@ -73,4 +73,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function getFullNameAttribute(){
         return $this->first_name . ' ' . $this->last_name;
     }
+
+    public function feed(){
+        return $this->hasMany('App\Feed');
+    }
 }

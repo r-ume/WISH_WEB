@@ -12,7 +12,11 @@ class Feed extends Model {
         return $this->belongsToMany('App\Category', 'categories_feeds', 'feed_id', 'category_id')->withTimestamps();
     }
     
-    public function user(){
-        return $this->belongsTo('App\User');
+    public function creator(){
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
+
+    public function getCategoriesListAttribute(){
+        return $this->categories->lists('id');
     }
 }
