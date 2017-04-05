@@ -10,11 +10,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script type="text/javascript" src="javascript/easyng.js"></script>
 
-<<<<<<< HEAD
-    <title>WISHTIMES作成</title>
-=======
     <title>FEEDS作成</title>
->>>>>>> feature/EventsController
 </head>
 
 <body>
@@ -28,10 +24,7 @@
         <a class="item" href = "/events">Events</a>
         <a class="item" href = "/wishtimes">Wishtimes</a>
         <a class="item" href = "/tweets">Tweets</a>
-<<<<<<< HEAD
-=======
         <a class="item" href = "/feeds">Feeds</a>
->>>>>>> feature/EventsController
         <div class="right menu">
             <div class="item">
                 <a class="ui button">Log in</a>
@@ -47,13 +40,8 @@
     <div class="ui stackable doubling grid">
         <!-- Middle Content -->
         <div class="twelve wide column">
-<<<<<<< HEAD
-            <h1> Wish times</h1>
-            <h3>Wishtimesの一覧ページ</h3>
-=======
             <h1>Feed</h1>
             <h3>Feedsの一覧ページ</h3>
->>>>>>> feature/EventsController
             <a href = "/wishtimes/create">
                 <button type="submit" class="ui primary button">create a new feeds</button>
             </a>
