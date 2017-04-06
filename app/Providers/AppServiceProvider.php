@@ -11,8 +11,11 @@ class AppServiceProvider extends ServiceProvider {
 	 */
         public function boot(){
             view()->composer('*', function($view){
-                $view_name = $view->getName();
-                view()->share('view_name', $view_name);
+                $view_whole_name = $view->getName();
+                $view_name_array = explode('.', $view_whole_name);
+                $view_action_name = end($view_name_array);
+                $view_model_name = reset($view_name_array);
+                view()->share(compact('view_whole_name', 'view_action_name', 'view_model_name'));
             });
         }
 
