@@ -48,9 +48,10 @@ class EventsController extends Controller {
         $user = Auth::user();
     
         $tweets = Tweet::all();
-        $categories = Category::lists('name', 'id');
+        $listedCategories = Category::lists('name', 'id');
         $users = User::get()->lists('full_name', 'id');
-        return view('events.create', compact('categories', 'user', 'tweets', 'users'));
+        $categories = Category::all();
+        return view('events.create', compact('listedCategories', 'user', 'tweets', 'users', 'categories'));
     }
 
     /**
@@ -113,10 +114,11 @@ class EventsController extends Controller {
      */
     public function edit(Event $event){
         $user = Auth::user();
-        $categories = Category::lists('name', 'id');
+        $listedCategories = Category::lists('name', 'id');
         $tweets = Tweet::orderBy('created_at', 'DESC')->get();
         $users = User::get()->lists('full_name', 'id');
-        return view('events.edit', compact('event', 'categories', 'user', 'tweets', 'users'));
+        $categories = Category::all();
+        return view('events.edit', compact('event', 'listedCategories', 'user', 'tweets', 'users', 'categories'));
     }
 
     /**

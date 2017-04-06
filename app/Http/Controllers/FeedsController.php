@@ -77,11 +77,12 @@ class FeedsController extends Controller {
      * @param  object  $feed
      * @return Response
      */
-    public function show(Feed $feed)
-    {
+    public function show(Feed $feed){
         $user = $this->user;
         $tweets = $this->tweets;
-        return view('feeds.show', compact('feed', 'user', 'tweets'));
+        $categories = $this->categories;
+        $listedCategories = $this->listedCategories;
+        return view('feeds.show', compact('feed', 'user', 'tweets', 'categories', 'listedCategories'));
     }
 
     /**
@@ -93,8 +94,9 @@ class FeedsController extends Controller {
     public function edit(Feed $feed){
         $user = $this->user;
         $tweets = $this->tweets;
+        $categories = $this->categories;
         $listedCategories = $this->listedCategories;
-        return view('feeds.edit', compact('feed', 'user', 'tweets', 'listedCategories'));
+        return view('feeds.edit', compact('feed', 'user', 'tweets', 'categories', 'listedCategories'));
     }
 
     /**

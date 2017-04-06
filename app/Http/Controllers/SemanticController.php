@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\File;
 
 use Illuminate\Http\Request;
 
+use \App\Category;
+use \App\Tweet;
+use \App\Event;
+
 class SemanticController extends Controller {
 
     public function semantic(){
@@ -22,5 +26,13 @@ class SemanticController extends Controller {
 
     public function semanticLogin(){
         return view('semantic.login');
+    }
+
+    public function partial_index(){
+        $events = Event::all();
+        $user = \Auth::user();
+        $categories = Category::all();
+        $tweets = Tweet::all();
+        return view('semantic.partial_index', compact('user', 'categories', 'tweets', 'events'));
     }
 }
