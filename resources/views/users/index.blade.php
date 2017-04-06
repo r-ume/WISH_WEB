@@ -1,6 +1,6 @@
 @extends('layouts.common')
 
-@section('title', 'WISH_WEB feed')
+@section('title', 'WISH_WEB Residents')
 
 @include('layouts.head')
 
