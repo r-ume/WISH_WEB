@@ -9,10 +9,12 @@ class AppServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function boot()
-	{
-		//
-	}
+        public function boot(){
+            view()->composer('*', function($view){
+                $view_name = $view->getName();
+                view()->share('view_name', $view_name);
+            });
+        }
 
 	/**
 	 * Register any application services.
