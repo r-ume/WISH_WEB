@@ -64,6 +64,8 @@
                 <button class="ui button">Next</button>
             </div>
         </div>
+        <br />
+
     </div>
 @endsection
 

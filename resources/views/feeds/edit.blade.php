@@ -37,6 +37,7 @@
         <div class = "field">
             {!! Form::submit('Edit the feeds', ['class' => 'ui blue button']) !!}
         </div>
+        <br/>
     {!! Form::close() !!}
     </div>
 @endsection

@@ -12,9 +12,9 @@
                     <div class="sixteen wide column">
                         @yield('content')
                     </div>
-                @elseif($view_whole_name = 'users.index')
+                @elseif($view_whole_name == 'users.myprofile')
                     @yield('content')
-                @elseif($view_action_name = 'residents')
+                @elseif($view_action_name == 'residents')
                     @yield('content')
                 @else
                     <div class="twelve wide column">
