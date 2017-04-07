@@ -18,7 +18,7 @@
         </ul>
     @endif
 
-    {!! Form::model($feed, ['method' => 'PATCH', 'action' => ['FeedsController@update', $feed->id]]) !!}
+    {!! Form::model($feed, ['method' => 'PATCH', 'action' => ['FeedsController@update', $feed->title]]) !!}
         <div class = "field">
             {!! Form::label('title', 'Title:') !!}
             {!! Form::text('title', $feed->title) !!}

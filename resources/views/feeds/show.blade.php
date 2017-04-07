@@ -10,11 +10,11 @@
     <!-- Middle Content -->
     <div class="twelve wide column">
         @if($feed->user_id == $user->id)
-            {!! Form::model($feed, ['method' => 'GET', 'url' => 'feeds/edit/'.$feed->id]) !!}
+            {!! Form::model($feed, ['method' => 'GET', 'url' => 'feeds/edit/'.$feed->title]) !!}
                 <button type="submit" class="ui primary button">edit</button>
             {!! Form::close() !!}
 
-            {!! Form::model($feed, ['method' => 'DELETE', 'url' => 'feeds/'.$feed->id]) !!}
+            {!! Form::model($feed, ['method' => 'DELETE', 'url' => 'feeds/'.$feed->title]) !!}
                 <button type="submit" class="red ui button"
                         onclick = 'return confirm("Are you sure that you would like to delete this wishtime?");'>delete</button>
             {!! Form::close() !!}
