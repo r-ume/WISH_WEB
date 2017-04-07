@@ -22,7 +22,7 @@
                         <img src="{{ asset($feed->image) }}">
                     </div>
                     <div class="content">
-                        <a class = "header" href = "{{action('FeedsController@show', [$feed->id])}}"><h3>{{ $feed->id }} {{ $feed->title }}</h3></a>
+                        <a class = "header" href = "{{action('FeedsController@show', [$feed->title])}}"><h3>{{ $feed->id }} {{ $feed->title }}</h3></a>
                         <div class="meta">
                             <span>
                                 <i class="calendar icon"></i>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="extra">
                             <div class="ui blue right floated button">
-                                <a href = "{{action('FeedsController@show', [$feed->id])}}" style ="color:white;">Read More</a>
+                                <a href = "{{action('FeedsController@show', [$feed->title])}}" style ="color:white;">Read More</a>
                             </div>
                         </div>
                     </div>

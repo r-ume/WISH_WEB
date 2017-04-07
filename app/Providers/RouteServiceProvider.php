@@ -2,6 +2,8 @@
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use \Route as Route;
+use App\Feed;
 
 class RouteServiceProvider extends ServiceProvider {
 
@@ -28,8 +30,12 @@ class RouteServiceProvider extends ServiceProvider {
         $router->model('tweet', 'App\Tweet');
         $router->model('wishtimes', 'App\Wishtimes');
         $router->model('event', 'App\Event');
-        $router->model('feed', 'App\Feed');
-	}
+
+        Route::bind('feed', function($title) {
+            return Feed::where('title', $title)->first();
+        });
+
+    }
 
 
     /**
