@@ -52,8 +52,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     // many to many relationships
-    public function events_mm(){
-        return $this->belongsToMany('App\User', 'events_users', 'user_id', 'event_id')->withTimestamps();
+    public function joiningEvents(){
+        return $this->belongsToMany('App\Event', 'events_users', 'user_id', 'event_id')->withTimestamps();
     }
 
     public function eventsCount(){
