@@ -1,0 +1,83 @@
+[1mdiff --git a/app/Http/Controllers/EventsController.php b/app/Http/Controllers/EventsController.php[m
+[1mindex d88979e..35b0a45 100644[m
+[1m--- a/app/Http/Controllers/EventsController.php[m
+[1m+++ b/app/Http/Controllers/EventsController.php[m
+[36m@@ -7,11 +7,14 @@[m [muse App\Event;[m
+ use App\Http\Requests\CreateEventRequest;[m
+ use Illuminate\Http\Request;[m
+ [m
+[32m+[m[32muse \Input as Input;[m
+[32m+[m[32muse Intervention\Image\ImageManagerStatic as Image;[m
+[32m+[m
+ class EventsController extends Controller {[m
+     [m
+     public function __construct()[m
+     {[m
+[31m-        $this->middleware('auth', ['only' => 'show', 'create', 'store', 'edit', 'update', 'delete']);[m
+[32m+[m[32m        $this->middleware('auth');[m
+     }[m
+ [m
+ 	/**[m
+[36m@@ -42,8 +45,16 @@[m [mclass EventsController extends Controller {[m
+ 	 */[m
+ 	public function store(CreateEventRequest $request)[m
+ 	{[m
+[31m-		Event::create($request->all());[m
+[31m-        [m
+[32m+[m		[32m$event = Event::create($request->all());[m
+[32m+[m
+[32m+[m[32m        $input = Input::all();[m
+[32m+[m[32m        $image = Input::file('image');[m
+[32m+[m[32m        $imageName = $input['image']->getClientOriginalName();[m
+[32m+[m[32m        $path = public_path('uploads/'.$imageName);[m
+[32m+[m[32m        Image::make($image->getRealPath())->resize(468, 468)->save($path);[m
+[32m+[m[32m        $event->image = 'uploads/'.$imageName;[m
+[32m+[m[32m        $event->save();[m
+[32m+[m
+         return redirect('events');[m
+ 	}[m
+ [m
+[1mdiff --git a/resources/views/app.blade.php b/resources/views/app.blade.php[m
+[1mindex ae705d7..635e27f 100644[m
+[1m--- a/resources/views/app.blade.php[m
+[1m+++ b/resources/views/app.blade.php[m
+[36m@@ -47,6 +47,7 @@[m
+ 					<li><a href="/myprofile">Home</a></li>[m
+                     <li><a href="/wishtimes">Wishtimes</a></li>[m
+                     <li><a href="/events">Events</a></li>[m
+[32m+[m[32m                    <li><a href="/tweets">Tweets</a></li>[m
+                 </ul>[m
+ [m
+ 				<ul class="nav navbar-nav navbar-right">[m
+[1mdiff --git a/resources/views/events/create.blade.php b/resources/views/events/create.blade.php[m
+[1mindex c83ad68..47aef24 100644[m
+[1m--- a/resources/views/events/create.blade.php[m
+[1m+++ b/resources/views/events/create.blade.php[m
+[36m@@ -27,10 +27,10 @@[m
+         {{--{!! Form::select('categories_list[]', $categories, null, ['id' => 'categories_list', 'class' => 'form-control', 'multiple']) !!}--}}[m
+     {{--</div>--}}[m
+ [m
+[31m-    {{--<div class = "form-group">--}}[m
+[31m-        {{--{!! Form::label('image', '画像アップロード', ['class' => 'control-label']) !!}--}}[m
+[31m-        {{--{!! Form::file('image') !!}--}}[m
+[31m-    {{--</div>--}}[m
+[32m+[m[32m    <div class = "form-group">[m
+[32m+[m[32m        {!! Form::label('image', '画像アップロード', ['class' => 'control-label']) !!}[m
+[32m+[m[32m        {!! Form::file('image') !!}[m
+[32m+[m[32m    </div>[m
+ [m
+     <div class = "form-group">[m
+         {!! Form::submit('make a new event', ['class' => 'btn btn-primary form-control']) !!}[m
+[1mdiff --git a/resources/views/events/show.blade.php b/resources/views/events/show.blade.php[m
+[1mindex 35d3bd8..19ef104 100644[m
+[1m--- a/resources/views/events/show.blade.php[m
+[1m+++ b/resources/views/events/show.blade.php[m
+[36m@@ -3,6 +3,8 @@[m
+ @section('content')[m
+     <h1>{{$event->title}}</h1>[m
+     <h3>{{$event->description}}</h3>[m
+[32m+[m[32m    <span><img src="{{ asset($event->image) }}" /></span>[m
+[32m+[m
+ [m
+     {!! Form::model($event, ['method' => 'GET', 'url' => 'events/edit/'.$event->id]) !!}[m
+     <button type="submit" class="btn btn-primary">edit</button>[m
