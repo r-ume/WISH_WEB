@@ -5,8 +5,8 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "5.0.*",
-		"laravelcollective/html": "~5.0",
+		"laravel/framework": "5.1.*",
+		"laravelcollective/html": "~5.1",
 		"intervention/image": "^2.3",
 		"wangaz/laravel-semantic-ui-css": "^1.2",
 		"maddhatter/laravel-fullcalendar": "~1.0"
