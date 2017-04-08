@@ -18,7 +18,7 @@
             </ul>
         @endif
 
-        {!! Form::model($event, ['method' => 'PATCH', 'action' => ['EventsController@update', $event->id]]) !!}
+        {!! Form::model($event, ['method' => 'PATCH', 'action' => ['EventsController@update', $event->title]]) !!}
             <div class = "field">
                 {!! Form::label('title', 'Title:') !!}
                 {!! Form::text('title', $event->title) !!}

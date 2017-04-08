@@ -3,7 +3,12 @@
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use \Route as Route;
+
 use App\Feed;
+use App\Event;
+use App\Tweet;
+use App\User;
+use App\Wishtimes;
 
 class RouteServiceProvider extends ServiceProvider {
 
@@ -25,11 +30,25 @@ class RouteServiceProvider extends ServiceProvider {
     public function boot(Router $router){
         parent::boot($router);
 
-        $router->model('user', 'App\User');
-        $router->model('event', 'App\Event' );
-        $router->model('tweet', 'App\Tweet');
-        $router->model('wishtimes', 'App\Wishtimes');
-        $router->model('event', 'App\Event');
+        Route::bind('user', function($full_name){
+           return User::get()->where('full_name', $full_name)->first();
+        });
+
+        Route::bind('event', function($title){
+           return Event::where('title', $title)->first();
+        });
+
+        Route::bind('tweet', function($tweet){
+           return Tweet::where('tweet', $tweet)->first();
+        });
+
+        Route::bind('wishtimes', function($title){
+            return Wishtimes::where('title', $title)->first();
+        });
+
+        Route::bind('event', function($title){
+            return Event::where('title', $title)->first();
+        });
 
         Route::bind('feed', function($title) {
             return Feed::where('title', $title)->first();

@@ -28,7 +28,7 @@
             </div>
             <div class = "field">
                 {!! Form::label('categories_list', 'Categories:') !!}
-                {!! Form::select('categories_list[]', $categories, null, ['id' => 'categories_list', 'multiple']) !!}
+                {!! Form::select('categories_list[]', $listedCategories, null, ['id' => 'categories_list', 'multiple']) !!}
             </div>
             <div class = "field">
                 {!! Form::label('image', '画像アップロード', ['class' => 'ui blue button']) !!}

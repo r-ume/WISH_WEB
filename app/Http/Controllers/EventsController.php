@@ -16,8 +16,21 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class EventsController extends Controller {
 
+    protected $user;
+    protected $events;
+    protected $tweets;
+    protected $categories;
+    protected $listedCategories;
+    protected $paginationNum;
+
     public function __construct(){
         $this->middleware('auth');
+        $this->user = Auth::user();
+        $this->events = Event::orderBy('created_at', 'DESC')->get();
+        $this->tweets = Tweet::orderBy('created_at', 'DESC')->get();
+        $this->categories = Category::all();
+        $this->listedCategories = Category::lists('name', 'id');
+        $this->paginationNum = 10;
     }
 
     /**
@@ -26,15 +39,15 @@ class EventsController extends Controller {
      * @return Response
      */
     public function index(){
-        $paginationNum = 3;
-        $allEvents = Event::all();
+        $paginationNum = $this->paginationNum;
+        $allEvents = $this->events;
         $eventsNum = $allEvents->count();
         $pageNum = floor($eventsNum / $paginationNum);
         
-        $user = \Auth::user();
+        $user = $this->user;
         $events = Event::orderBy('created_at', 'DESC')->paginate($paginationNum);
-        $categories = Category::all();
-        $tweets = Tweet::orderBy('created_at', 'DESC')->get();
+        $categories = $this->categories;
+        $tweets = $this->tweets;
     
         return view('events.index', compact('events', 'user', 'pageNum', 'categories', 'tweets'));
     }
@@ -45,12 +58,12 @@ class EventsController extends Controller {
      * @return Response
      */
     public function create(){
-        $user = Auth::user();
+        $user = $this->user;
     
-        $tweets = Tweet::all();
-        $listedCategories = Category::lists('name', 'id');
+        $tweets = $this->tweets;
+        $listedCategories = $this->listedCategories;
         $users = User::get()->lists('full_name', 'id');
-        $categories = Category::all();
+        $categories = $this->categories;
         return view('events.create', compact('listedCategories', 'user', 'tweets', 'users', 'categories'));
     }
 
@@ -63,7 +76,7 @@ class EventsController extends Controller {
         $request['start_at'] = time($request['start_at']);
         $request['end_at'] = time($request['end_at']);
 
-        $event = \Auth::user()->events()->create($request->all());
+        $event = Auth::user()->events()->create($request->all());
         if($request->input('categories_list')){
             $event->categories()->sync($request->input('categories_list'));
         }
@@ -113,11 +126,11 @@ class EventsController extends Controller {
      * @return Response
      */
     public function edit(Event $event){
-        $user = Auth::user();
-        $listedCategories = Category::lists('name', 'id');
-        $tweets = Tweet::orderBy('created_at', 'DESC')->get();
+        $user = $this->user;
+        $listedCategories = $this->listedCategories;
+        $tweets = $this->tweets;
         $users = User::get()->lists('full_name', 'id');
-        $categories = Category::all();
+        $categories = $this->categories;
         return view('events.edit', compact('event', 'listedCategories', 'user', 'tweets', 'users', 'categories'));
     }
 
@@ -130,17 +143,14 @@ class EventsController extends Controller {
     public function update(CreateEventRequest $request, Event $event){
         $event->update($request->all());
 
-        if($request->input('categories_list')){
-            $event->categories()->sync($request->input('categories_list'));
-        }
-
-        if($request->input('categories_list')){
+        $input_categories = $request->input('categories_list');
+        if($input_categories){
             $event->categories()->sync($request->input('categories_list'));
         }
 
         $input = Input::all();
-        $image = Input::file('image');
-        if($image){
+        $input_image = Input::file('image');
+        if($input_image){
             $imageName = $input['image']->getClientOriginalName();
             $path = public_path('uploads/'.$imageName);
             Image::make($image->getRealPath())->resize(468, 468)->save($path);

@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
 use App\Wishtimes;
 use App\Category;
 use App\Tweet;
@@ -9,11 +10,25 @@ use App\Http\Requests\CreateWishTimesRequest;
 
 use \Input as Input;
 use Intervention\Image\ImageManagerStatic as Image;
+use \Auth as Auth;
 
 class WishtimesController extends Controller {
 
+    protected $user;
+    protected $wishtimes;
+    protected $listedCategories;
+    protected $categories;
+    protected $tweets;
+    protected $paginationNum;
+
     public function __construct(){
         $this->middleware('auth');
+        $this->user = Auth::user();
+        $this->wishtimes = Wishtimes::orderBy('created_at', 'DESC')->get();
+        $this->listedCategories = Category::lists('name', 'id');
+        $this->categories = Category::all();
+        $this->tweets = Tweet::orderBy('created_at', 'DESC')->get();
+        $this->paginationNum = 10;
     }
 
     /**
@@ -22,12 +37,12 @@ class WishtimesController extends Controller {
      * @return Response
      */
     public function index(){
-        $paginationNum = 3;
-        $allWishtimes = Wishtimes::all();
+        $paginationNum = $this->paginationNum;
+        $allWishtimes = $this->wishtimes;
         $wishtimesNum = $allWishtimes->count();
         $pageNum = floor($wishtimesNum / $paginationNum);
 
-        $user = \Auth::user();
+        $user = $this->user;
         $role = $this->_findRole($user);
         if ($role == 'RA'){
             $wishtimes = Wishtimes::orderBy('created_at', 'DESC')->paginate($paginationNum);
@@ -38,23 +53,22 @@ class WishtimesController extends Controller {
                 ->paginate($paginationNum);
         }
 
-        $categories = Category::all();
-        $tweets = Tweet::orderBy('created_at', 'DESC')->get();
+        $categories = $this->categories;
+        $tweets = $this->tweets;
 
         return view('wishtimes.index', compact('user', 'wishtimes', 'categories', 'tweets', 'pageNum', 'role'));
     }
 
     public function usersIndex(){
-        $paginationNum = 3;
-        $allWishtimes = Wishtimes::all();
+        $paginationNum = $this->paginationNum;
+        $allWishtimes = $this->wishtimes;
         $wishtimesNum = $allWishtimes->count();
         $pageNum = floor($wishtimesNum / $paginationNum);
 
-        $user = \Auth::user();
-        $wishtimes = Wishtimes::where('user_id', '=', $user->id)->paginate($paginationNum);
-
-        $categories = Category::all();
-        $tweets = Tweet::orderBy('created_at', 'DESC')->get();
+        $user = $this->user;
+        $wishtimes = Wishtimes::where('user_id', $user->id)->paginate($paginationNum);
+        $categories = $this->categories;
+        $tweets = $this->tweets;
 
         return view('wishtimes.index', compact('user', 'wishtimes', 'categories', 'tweets', 'pageNum'));
     }
@@ -65,11 +79,11 @@ class WishtimesController extends Controller {
      * @return Response
      */
     public function create(){
-        $user = \Auth::user();
-        $categories = Category::lists('name', 'id');
-        $allCategories = Category::all();
-        $tweets = Tweet::all();
-        return view('wishtimes.create', compact('user', 'categories', 'allCategories', 'tweets'));
+        $user = $this->user;
+        $listedCategories = $this->listedCategories;
+        $categories = $this->categories;
+        $tweets = $this->tweets;
+        return view('wishtimes.create', compact('user', 'categories', 'listedCategories', 'tweets'));
     }
 
     /**
@@ -83,15 +97,20 @@ class WishtimesController extends Controller {
 
         $input = Input::all();
         $image = Input::file('image');
-        $imageName = $input['image']->getClientOriginalName();
-        $path = public_path('uploads/'.$imageName);
-        Image::make($image->getRealPath())->resize(468, 468)->save($path);
-        $wishtimes->image = 'uploads/'.$imageName;
-        $wishtimes->save();
 
-        $wishtimes->categories()->sync($request->input('categories_list'));
+        if($image){
+            $imageName = $input['image']->getClientOriginalName();
+            $path = public_path('uploads/'.$imageName);
+            Image::make($image->getRealPath())->resize(468, 468)->save($path);
+            $wishtimes->image = 'uploads/'.$imageName;
+            $wishtimes->save();
+        }
 
-        \Session::flash('flash_message', 'Your wishtimes have been created');
+        $categories = $request->input('categories_list');
+
+        if($categories){
+            $wishtimes->categories()->sync($categories);
+        }
 
         return redirect('wishtimes');
     }
@@ -103,11 +122,11 @@ class WishtimesController extends Controller {
      * @return Response
      */
     public function show(Wishtimes $wishtimes){
-        $user = \Auth::user();
+        $user = $this->user;
         $role = $this->_findRole($user);
-        $tweets = Tweet::all();
-        $listedCategories = Category::lists('name', 'id');
-        $categories = Category::all();
+        $tweets = $this->tweets;
+        $listedCategories = $this->listedCategories;
+        $categories = $this->categories;
         return view('wishtimes.show', compact('wishtimes', 'user', 'tweets', 'role', 'listedCategories', 'categories'));
     }
 
@@ -118,10 +137,10 @@ class WishtimesController extends Controller {
      * @return Response
      */
     public function edit(Wishtimes $wishtimes){
-        $tweets = Tweet::all();
-        $categories = Category::lists('name', 'id');
-        $user = \Auth::user();
-        return view('wishtimes.edit', compact('wishtimes', 'categories', 'user', 'tweets'));
+        $tweets = $this->tweets;
+        $listedCategories = $this->listedCategories;
+        $user = $this->user;
+        return view('wishtimes.edit', compact('wishtimes', 'listedCategories', 'user', 'tweets'));
     }
 
     /**
@@ -132,7 +151,22 @@ class WishtimesController extends Controller {
      */
     public function update(Wishtimes $wishtimes, CreateWishTimesRequest $request){
         $wishtimes->update($request->all());
-        $wishtimes->categories()->sync($request->input('categories_list'));
+        $input_categories = $request->input('categories_list');
+        if($input_categories){
+            $wishtimes->categories()->sync($request->input('categories_list'));
+        }
+
+        $input = Input::all();
+        $input_image = Input::file('image');
+
+        if($input_image){
+            $imageName = $input['image']->getClientOriginalName();
+            $path = public_path('uploads/'.$imageName);
+            Image::make($input_image->getRealPath())->resize(468, 468)->save($path);
+            $wishtimes->image = 'uploads/'.$imageName;
+            $wishtimes->save();
+        }
+
         return redirect('wishtimes');
     }
 
