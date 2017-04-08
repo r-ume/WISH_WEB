@@ -67,7 +67,6 @@
 	</script>
 </head>
 <body>
-<!--<body style = "background-image:url('{{ URL::asset($image) }}'); background-size: cover;" > -->
 
 <div class="ui middle aligned center aligned grid">
 	<div class="column">
