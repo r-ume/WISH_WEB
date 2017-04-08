@@ -13,9 +13,15 @@
         <a href = "/wishtimes/create">
             <button type="submit" class="ui primary button">create a new wishtimes</button>
         </a>
-        <a href = "/wishtimes/yours">
-            <button type="submit" class="ui primary button">your wishtimes</button>
-        </a>
+        @if($view_whole_name == 'wishtimes.yours')
+            <a href = "/wishtimes/yours">
+                <button type="submit" class="ui primary button">your wishtimes</button>
+            </a>
+        @elseif($view_whole_name == 'wishtimes.index')
+            <a href = "/wishtimes">
+                <button type="submit" class="ui primary button">all wishtimes</button>
+            </a>
+        @endif
         <div align="center">
             <div class="ui items">
                 @foreach($wishtimes as $wishtime)
@@ -25,7 +31,7 @@
                             <img src="{{ asset($wishtime->image) }}">
                         </div>
                         <div class="content">
-                            <a class = "header" href = "{{action('WishtimesController@show', [$wishtime->id])}}"><h3>{{ $wishtime->id }} {{ $wishtime->title }}</h3></a>
+                            <a class = "header" href = "{{action('WishtimesController@show', [$wishtime->title])}}"><h3>{{ $wishtime->id }} {{ $wishtime->title }}</h3></a>
                             <div class="meta">
                                 <span>
                                     <i class="calendar icon"></i>
@@ -43,7 +49,7 @@
                             </div>
                             <div class="extra">
                                 <div class="ui blue right floated button">
-                                    <a href = "{{action('WishtimesController@show', [$wishtime->id])}}" style ="color:white;">Read More</a>
+                                    <a href = "{{action('WishtimesController@show', [$wishtime->title])}}" style ="color:white;">Read More</a>
                                 </div>
                                 @if($wishtime->isApproved == 0) <div class="ui yellow right floated button">Pending</div>
                                 @elseif ($wishtime->isApproved == 1) <div class="ui red right floated button">Rejected</div>

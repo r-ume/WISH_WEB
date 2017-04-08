@@ -22,7 +22,7 @@
                         <img src="{{ asset($event->image) }}">
                     </div>
                     <div class="content">
-                        <a class = "header" href = "{{action('EventsController@show', [$event->id])}}"><h3>{{ $event->id }} {{ $event->title }}</h3></a>
+                        <a class = "header" href = "{{action('EventsController@show', [$event->title])}}"><h3>{{ $event->id }} {{ $event->title }}</h3></a>
                         <div class="meta">
                             <span>
                                 <i class="calendar icon"></i>
@@ -42,7 +42,7 @@
                         </div>
                         <div class="extra">
                             <div class="ui blue right floated button">
-                                <a href = "{{action('EventsController@show', [$event->id])}}" style ="color:white;">Read More</a>
+                                <a href = "{{action('EventsController@show', [$event->title])}}" style ="color:white;">Read More</a>
                             </div>
                         </div>
                     </div>

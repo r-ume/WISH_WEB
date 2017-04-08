@@ -9,11 +9,11 @@
 @section('content')
     <div class="twelve wide column">
         @if($user->id == $event->user_id)
-            {!! Form::model($event, ['method' => 'GET', 'url' => 'events/edit/'.$event->id]) !!}
+            {!! Form::model($event, ['method' => 'GET', 'url' => 'events/edit/'.$event->title]) !!}
                 <button type="submit" class="ui primary button">edit</button>
             {!! Form::close() !!}
 
-            {!! Form::model($event, ['method' => 'DELETE', 'url' => 'events/'.$event->id]) !!}
+            {!! Form::model($event, ['method' => 'DELETE', 'url' => 'events/'.$event->title]) !!}
                 <button type="submit" class="red ui button"
                         onclick = 'return confirm("Are you sure that you would like to delete this event?");'>delete</button>
             {!! Form::close() !!}
@@ -22,7 +22,7 @@
         @elseif($event->usersCount >= $event->max_people)
             <span class="ui red button">Attendance Max</span>
         @else
-            {!! Form::model($event, ['method' => 'POST', 'url' => 'events/attend/'.$event->id]) !!}
+            {!! Form::model($event, ['method' => 'POST', 'url' => 'events/attend/'.$event->title]) !!}
                 {!! Form::hidden('user_id', $user->id) !!}
                     <button type="submit" class="ui yellow button">Attend</button>
             {!! Form::close() !!}

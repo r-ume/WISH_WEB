@@ -10,20 +10,20 @@
     <!-- Middle Content -->
     <div class="twelve wide column">
         @if($wishtimes->user_id == $user->id)
-            {!! Form::model($wishtimes, ['method' => 'GET', 'url' => 'wishtimes/edit/'.$wishtimes->id]) !!}
+            {!! Form::model($wishtimes, ['method' => 'GET', 'url' => 'wishtimes/edit/'.$wishtimes->title]) !!}
             <button type="submit" class="ui primary button">edit</button>
             {!! Form::close() !!}
 
-            {!! Form::model($wishtimes, ['method' => 'DELETE', 'url' => 'wishtimes/'.$wishtimes->id]) !!}
+            {!! Form::model($wishtimes, ['method' => 'DELETE', 'url' => 'wishtimes/'.$wishtimes->title]) !!}
             <button type="submit" class="red ui button"
                     onclick = 'return confirm("Are you sure that you would like to delete this wishtime?");'>delete</button>
             {!! Form::close() !!}
         @elseif($role == 'RA')
-            {!! Form::model($wishtimes, ['method' => 'POST', 'url' => 'wishtimes/approve/'.$wishtimes->id]) !!}
+            {!! Form::model($wishtimes, ['method' => 'POST', 'url' => 'wishtimes/approve/'.$wishtimes->title]) !!}
             <button type="submit" class="ui primary button">Approve</button>
             {!! Form::close() !!}
 
-            {!! Form::model($wishtimes, ['method' => 'POST', 'url' => 'wishtimes/disapprove/'.$wishtimes->id]) !!}
+            {!! Form::model($wishtimes, ['method' => 'POST', 'url' => 'wishtimes/disapprove/'.$wishtimes->title]) !!}
             <button type="submit" class="ui red button">Disapprove</button>
             {!! Form::close() !!}
         @endif

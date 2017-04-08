@@ -9,6 +9,7 @@ use App\Http\Requests\CreateFeedRequest;
 use App\Feed;
 use App\Category;
 use App\Tweet;
+
 use \Auth as Auth;
 
 class FeedsController extends Controller {

@@ -2,19 +2,18 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
 
 use \Calendar as Calendar;
 use \Auth as Auth;
+
 use App\Event;
 use App\Wishtimes;
 
 class FullCalendarController extends Controller{
 
-	public function index(){
-
-	    $user = Auth::user();
+    public function index(){
+        $user = Auth::user();
         $calendarEvents =[];
         $events = Event::orderBy('created_at', 'DESC')->get();
 
@@ -29,11 +28,9 @@ class FullCalendarController extends Controller{
         }
 
         $calendar = Calendar::addEvents($calendarEvents)
-                ->setOptions([
-                    'firstDay' => 1
-                ]);
-
-//        $joiningEvents = Event::orderBy
+            ->setOptions([
+                'firstDay' => 1
+            ]);
 
         return view('calendar.index', compact('calendar', 'user', 'events'));
     }

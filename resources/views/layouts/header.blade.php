@@ -7,6 +7,7 @@
             <a class="item" href = "/wishtimes">Wishtimes</a>
             <a class="item" href = "/feeds">Feeds</a>
             <a class="item" href = "/tweets">Tweets</a>
+            <a class="item" href = "/calendar">Calendar</a>
             @foreach($user->roles as $role)
                 @if($role->role == 'RA')
                     <a class = "item" href = "/residents">Residents</a>
