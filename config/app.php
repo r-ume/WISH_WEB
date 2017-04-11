@@ -135,10 +135,11 @@ return [
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
-        'Collective\Html\HtmlServiceProvider',
-        'Intervention\Image\ImageServiceProvider',
-        'MaddHatter\LaravelFullcalendar\ServiceProvider',
-        
+		'Collective\Html\HtmlServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
+		'MaddHatter\LaravelFullcalendar\ServiceProvider',
+		'Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider',
+
 		/*
 		 * Application Service Providers...
 		 */
@@ -195,9 +196,9 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
-        'Form' => 'Collective\Html\FormFacade',
-        'Html' => 'Collective\Html\HtmlFacade',
-        'Image' => 'Intervention\Image\FacadesImage',
-        'Calendar' => 'MaddHatter\LaravelFullcalendar\Facades\Calendar',
+		'Form' => 'Collective\Html\FormFacade',
+		'Html' => 'Collective\Html\HtmlFacade',
+		'Image' => 'Intervention\Image\FacadesImage',
+		'Calendar' => 'MaddHatter\LaravelFullcalendar\Facades\Calendar',
     ],
 ];
