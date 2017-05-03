@@ -43,7 +43,6 @@ class UsersController extends Controller {
 
     public function myprofile(){
         $user = $this->user;
-		dd($user);
         $events = $this->events;
         return view('users.myprofile', compact('user', 'events'));
     }
