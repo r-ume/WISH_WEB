@@ -21,7 +21,7 @@ class UsersController extends Controller {
         $this->middleware('auth');
         $this->user = Auth::user();
         $this->users = User::all();
-        $this->events = Event::all();
+        $this->events = Event::with('creator')->get();
     }
 
     public function index(){
