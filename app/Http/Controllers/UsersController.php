@@ -21,7 +21,8 @@ class UsersController extends Controller {
         $this->middleware('auth');
         $this->user = Auth::user();
         $this->users = User::all();
-        $this->events = Event::with('creator')->get();
+        $PAGINATION_NUM = 6;
+        $this->events = Event::with('creator')->paginate($PAGINATION_NUM);
     }
 
     public function index(){
