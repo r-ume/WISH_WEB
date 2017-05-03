@@ -20,8 +20,17 @@ class SemanticController extends Controller {
         
         $key = array_rand($allImages);
         $image = $allImages[$key];
+        
+        $quotes = [
+            '世界は、広いよ。最初の1歩はWISHから。',
+            '楽しい大学生活が、今ここから始まる。',
+            '一生の友達は、いつだって寮でできるもの。'
+        ];
+        
+        $quote_key = array_rand($quotes);
+        $quote = $quotes[$quote_key];
     
-        return view('semantic.index', compact('image'));
+        return view('semantic.index', compact('image', 'quote'));
     }
 
     public function semanticLogin(){

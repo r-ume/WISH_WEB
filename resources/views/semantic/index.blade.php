@@ -196,7 +196,7 @@
 
             <div class="ui text container">
                 <h1 class="ui inverted header title" data-ft="WISH_WEB"></h1>
-                <h2 class="quote">{{ Inspiring::quote() }}</h2>
+                <h2 class="quote">{{ $quote }}</h2>
                 <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
             </div>
 
@@ -229,7 +229,7 @@
                 <div class="center aligned row">
                     <div class="column">
                         <h3>女好きもいいじゃないか</h3>
-                        <p>水谷だもの</p>
+                        <p>水上だもの</p>
                     </div>
                     <div class="column">
                         <h3>WISHは、いい環境しかない</h3>
