@@ -20,7 +20,7 @@
 
                     <div class="menu">
                         <div class="item">
-                            @if($user) Log out
+                            @if($user) <a href = "/auth/logout">Log out</a>
                             @else Log in
                             @endif
                         </div>
