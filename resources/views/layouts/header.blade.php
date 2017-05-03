@@ -13,18 +13,21 @@
                     <a class = "item" href = "/residents">Residents</a>
                 @endif
             @endforeach
+
             <div class="right menu">
-                <a href="/myprofile" class="header item"><img class="logo" src="{{ asset($user->image) }}"></a>
-                <div class="item">
-                    @if($user)
-                        <a class="ui button">Log out</a>
-                    @else
-                        <a class="ui button">Log in</a>
-                    @endif
+                <div class="ui dropdown">
+                    <div class="item"><img class="logo" src="{{ asset($user->image) }}"></div>
+
+                    <div class="menu">
+                        <div class="item">
+                            @if($user) Log out
+                            @else Log in
+                            @endif
+                        </div>
+                        @if(!$user)<div class="item">Sign Up</div>@endif
+                        <div class = "item"><a href = "/myprofile">My Profile</a></div>
+                    </div>
                 </div>
-                @if(!$user)
-                    <div class="item"><a class="ui primary button">Sign Up</a></div>
-                @endif
             </div>
         </div>
     </div>

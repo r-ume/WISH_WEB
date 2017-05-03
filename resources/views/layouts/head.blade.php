@@ -21,6 +21,7 @@
         $(document).ready(function(){
             $('#categories_list').select2();
             $('#users_list').select2();
+            $('.ui.dropdown').dropdown();
         });
     </script>
 @endsection
