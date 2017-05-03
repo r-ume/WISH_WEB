@@ -41,7 +41,7 @@
                                         {{ $category->name }}
                                     @endforeach
                                     <i class="user icon"></i>
-                                    {{ $wishtime->user->first_name }} {{ $wishtime->user->last_name }}
+                                    {{ $wishtime->author->first_name }} {{ $wishtime->author->last_name }}
                                 </span>
                             </div>
                             <div class="description" align="justify">

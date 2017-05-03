@@ -24,8 +24,8 @@ class WishtimesController extends Controller {
     public function __construct(){
         $this->middleware('auth');
         $this->user = Auth::user();
-        $this->wishtimes = Wishtimes::orderBy('created_at', 'DESC')->get();
-        $this->listedCategories = Category::lists('name', 'id');
+        $this->wishtimes = Wishtimes::with('author', 'categories')->orderBy('created_at', 'DESC')->get();
+        $this->pluckedCategories = Category::pluck('name', 'id');
         $this->categories = Category::all();
         $this->tweets = Tweet::orderBy('created_at', 'DESC')->get();
         $this->paginationNum = 10;
@@ -38,9 +38,8 @@ class WishtimesController extends Controller {
      */
     public function index(){
         $paginationNum = $this->paginationNum;
-        $allWishtimes = $this->wishtimes;
-        $wishtimesNum = $allWishtimes->count();
-        $pageNum = floor($wishtimesNum / $paginationNum);
+        $maxWishtimes = Wishtimes::count();
+        $pageNum = floor($maxWishtimes / $paginationNum);
 
         $user = $this->user;
         $role = $this->_findRole($user);
@@ -61,16 +60,15 @@ class WishtimesController extends Controller {
 
     public function usersIndex(){
         $paginationNum = $this->paginationNum;
-        $allWishtimes = $this->wishtimes;
-        $wishtimesNum = $allWishtimes->count();
-        $pageNum = floor($wishtimesNum / $paginationNum);
+        $maxWishtimes = Wishtimes::count();
+        $pageNum = floor($maxWishtimes / $paginationNum);
 
         $user = $this->user;
         $wishtimes = Wishtimes::where('user_id', $user->id)->paginate($paginationNum);
         $categories = $this->categories;
         $tweets = $this->tweets;
 
-        return view('wishtimes.index', compact('user', 'wishtimes', 'categories', 'tweets', 'pageNum'));
+        return view('wishtimes.index', compact('pageNum', 'user', 'wishtimes', 'categories', 'tweets'));
     }
 
     /**
@@ -80,10 +78,10 @@ class WishtimesController extends Controller {
      */
     public function create(){
         $user = $this->user;
-        $listedCategories = $this->listedCategories;
         $categories = $this->categories;
+        $pluckedCategories = $this->pluckedCategories;
         $tweets = $this->tweets;
-        return view('wishtimes.create', compact('user', 'categories', 'listedCategories', 'tweets'));
+        return view('wishtimes.create', compact('user', 'categories', 'pluckedCategories', 'tweets'));
     }
 
     /**
@@ -125,9 +123,10 @@ class WishtimesController extends Controller {
         $user = $this->user;
         $role = $this->_findRole($user);
         $tweets = $this->tweets;
-        $listedCategories = $this->listedCategories;
         $categories = $this->categories;
-        return view('wishtimes.show', compact('wishtimes', 'user', 'tweets', 'role', 'listedCategories', 'categories'));
+        $associatedCategories = $wishtimes->pluckedCategories;
+    
+        return view('wishtimes.show', compact('wishtimes', 'user', 'role', 'tweets', 'categories', 'associatedCategories'));
     }
 
     /**
@@ -137,10 +136,12 @@ class WishtimesController extends Controller {
      * @return Response
      */
     public function edit(Wishtimes $wishtimes){
-        $tweets = $this->tweets;
-        $listedCategories = $this->listedCategories;
         $user = $this->user;
-        return view('wishtimes.edit', compact('wishtimes', 'listedCategories', 'user', 'tweets'));
+        $tweets = $this->tweets;
+        $pluckedCategories = $this->pluckedCategories;
+        $associatedCategories = $wishtimes->AssociatedCategories;
+        
+        return view('wishtimes.edit', compact('wishtimes', 'user', 'tweets', 'pluckedCategories', 'associatedCategories'));
     }
 
     /**
