@@ -34,7 +34,11 @@ class Event extends Model {
         return $this->belongsToMany('App\Category', 'categories_events', 'event_id', 'category_id')->withTimestamps();
     }
 
-    public function getCategoriesListAttribute(){
-        return $this->categories->lists('id');
+    public function getAssociatedCategoriesAttribute(){
+        return $this->categories->pluck('id')->all();
+    }
+
+    public function getUsersListAttribute(){
+        return $this->joiningUsers->pluck('id')->all();
     }
 }

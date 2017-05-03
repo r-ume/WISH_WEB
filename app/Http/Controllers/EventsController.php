@@ -17,6 +17,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 class EventsController extends Controller {
 
     protected $user;
+    protected $users;
     protected $events;
     protected $tweets;
     protected $categories;
@@ -26,10 +27,11 @@ class EventsController extends Controller {
     public function __construct(){
         $this->middleware('auth');
         $this->user = Auth::user();
-        $this->events = Event::orderBy('created_at', 'DESC')->get();
+        $this->users = User::get()->pluck('full_name', 'id');
+        $this->events = Event::with('creator', 'categories')->orderBy('created_at', 'DESC')->get();
         $this->tweets = Tweet::orderBy('created_at', 'DESC')->get();
         $this->categories = Category::all();
-        $this->listedCategories = Category::lists('name', 'id');
+        $this->pluckedCategories = Category::pluck('name', 'id');
         $this->paginationNum = 10;
     }
 
@@ -39,17 +41,15 @@ class EventsController extends Controller {
      * @return Response
      */
     public function index(){
+        $maxEvents = Event::count();
         $paginationNum = $this->paginationNum;
-        $allEvents = $this->events;
-        $eventsNum = $allEvents->count();
-        $pageNum = floor($eventsNum / $paginationNum);
-        
-        $user = $this->user;
+        $pageNum = floor($maxEvents / $paginationNum);
         $events = Event::orderBy('created_at', 'DESC')->paginate($paginationNum);
+        $user = $this->user;
         $categories = $this->categories;
         $tweets = $this->tweets;
     
-        return view('events.index', compact('events', 'user', 'pageNum', 'categories', 'tweets'));
+        return view('events.index', compact('pageNum', 'events', 'user', 'categories', 'tweets'));
     }
 
     /**
@@ -59,12 +59,11 @@ class EventsController extends Controller {
      */
     public function create(){
         $user = $this->user;
-    
+        $users = $this->users;
         $tweets = $this->tweets;
-        $listedCategories = $this->listedCategories;
-        $users = User::get()->lists('full_name', 'id');
         $categories = $this->categories;
-        return view('events.create', compact('listedCategories', 'user', 'tweets', 'users', 'categories'));
+        $pluckedCategories = $this->pluckedCategories;
+        return view('events.create', compact('user', 'users', 'tweets', 'categories', 'pluckedCategories'));
     }
 
     /**
@@ -106,8 +105,8 @@ class EventsController extends Controller {
      */
     public function show(Event $event){
         $tweets = Tweet::all();
-        $categories = Category::all();
-        $user = \Auth::user();
+        $categories = $event->categories;
+        $user = $this->user;
 
         $attendance = false;
         foreach($event->joiningUsers as $attend_user){
@@ -127,11 +126,14 @@ class EventsController extends Controller {
      */
     public function edit(Event $event){
         $user = $this->user;
-        $listedCategories = $this->listedCategories;
-        $tweets = $this->tweets;
-        $users = User::get()->lists('full_name', 'id');
+        $users = $this->users;
+        $joiningUsers = $event->UsersList;
         $categories = $this->categories;
-        return view('events.edit', compact('event', 'listedCategories', 'user', 'tweets', 'users', 'categories'));
+        $associatedCategories = $event->AssociatedCategories;
+        $pluckedCategories = $this->pluckedCategories;
+        $tweets = $this->tweets;
+        
+        return view('events.edit', compact('event', 'pluckedCategories', 'user', 'tweets', 'users', 'categories', 'associatedCategories', 'joiningUsers'));
     }
 
     /**
@@ -144,16 +146,17 @@ class EventsController extends Controller {
         $event->update($request->all());
 
         $input_categories = $request->input('categories_list');
-        if($input_categories){
-            $event->categories()->sync($request->input('categories_list'));
-        }
-
+        if($input_categories) $event->categories()->sync($request->input('categories_list'));
+        
+        $input_joiningUsers = $request->input('users_list');
+        if($input_joiningUsers) $event->joiningUsers()->sync($request->input('users_list'));
+        
         $input = Input::all();
         $input_image = Input::file('image');
         if($input_image){
             $imageName = $input['image']->getClientOriginalName();
             $path = public_path('uploads/'.$imageName);
-            Image::make($image->getRealPath())->resize(468, 468)->save($path);
+            Image::make($input_image->getRealPath())->resize(468, 468)->save($path);
             $event->image = 'uploads/'.$imageName;
             $event->save();
         }

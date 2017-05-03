@@ -45,7 +45,7 @@
             </div>
             <div class = "field">
                 {!! Form::label('categories_list', 'Categories:') !!}
-                {!! Form::select('categories_list[]', $categories, null, ['id' => 'categories_list', 'multiple']) !!}
+                {!! Form::select('categories_list[]', $pluckedCategories, $associatedCategories, ['id' => 'categories_list', 'multiple']) !!}
             </div>
             <div class = "field">
                 {!! Form::label('image', '画像アップロード', ['class' => 'ui blue button']) !!}
@@ -54,7 +54,7 @@
             </div>
             <div class = "field">
                 {!! Form::label('users_list', 'Joiners:') !!}
-                {!! Form::select('users_list[]', $users, null, ['id' => 'users_list', 'multiple']) !!}
+                {!! Form::select('users_list[]', $users, $joiningUsers, ['id' => 'users_list', 'multiple']) !!}
             </div>
             <div class = "field">
                 {!! Form::submit('Edit the events', ['class' => 'ui blue button']) !!}
