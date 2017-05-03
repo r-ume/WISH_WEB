@@ -6,7 +6,6 @@
             <a class="item" href = "/events">Events</a>
             <a class="item" href = "/wishtimes">Wishtimes</a>
             <a class="item" href = "/feeds">Feeds</a>
-            <a class="item" href = "/calendar">Calendar</a>
             <a class="item" href = "/tweets">Tweets</a>
             <a class="item" href = "/calendar">Calendar</a>
             @foreach($user->roles as $role)
