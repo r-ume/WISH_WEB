@@ -5,6 +5,9 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
+use App\Language;
+
 trait RegistersUsers
 {
     use RedirectsUsers;
@@ -24,13 +27,14 @@ trait RegistersUsers
      *
      * @return \Illuminate\Http\Response
      */
-    public function showRegistrationForm()
-    {
+    public function showRegistrationForm(){
+        $languages = Language::all();
+    
         if (property_exists($this, 'registerView')) {
             return view($this->registerView);
         }
 
-        return view('auth.register');
+        return view('auth.register', compact('languages'));
     }
 
     /**

@@ -8,8 +8,7 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 	<link rel = "stylesheet" type = "text/css" href = "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.css" />
 	<script type ="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.js"></script>
-	<script type="text/javascript" src="http://gsgd.co.uk/sandbox/jquery/easing/jquery.easing.1.3.js"></script>
-	{{--<script type="text/javascript" src="javascript/easyng.js"></script>--}}
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
 
 	<!-- Site Properties -->
 	<title>Sign Up</title>
@@ -73,10 +72,7 @@
 	<div class="ui middle aligned center aligned grid">
 		<div class="column">
 			<h2 class="ui teal image header">
-				<img src="assets/images/logo.png" class="image">
-				<div class="content">
-					Sign Up
-				</div>
+				<div class="content">Sign Up</div>
 			</h2>
 			<form class="ui large form" role = "form" method = "POST" action = "/auth/register">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -109,7 +105,7 @@
 								@foreach($languages as $language)
 									<div class="item">
 										{{$language->id}} {{$language->language}}
-										</div>
+									</div>
 								@endforeach
 							</div>
 						</div>
