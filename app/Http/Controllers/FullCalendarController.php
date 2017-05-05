@@ -8,7 +8,6 @@ use \Calendar as Calendar;
 use \Auth as Auth;
 
 use App\Event;
-use App\Wishtimes;
 
 class FullCalendarController extends Controller{
     
@@ -18,15 +17,25 @@ class FullCalendarController extends Controller{
     
     public function __construct(){
         $this->numOfDisplayedEvents = 4;
-        $this->allEvents = Event::all();
+        $this->allEvents = Event::with('joiningUsers')->get();
         $this->recentEvents = Event::orderBy('created_at', 'DESC')->take($this->numOfDisplayedEvents)->get();
     }
     
     public function index(){
         $user = Auth::user();
+        
         $calendarEvents =[];
+        $joiningEvents = [];
         $allEvents = $this->allEvents;
         $recentEvents = $this->recentEvents;
+
+        foreach($allEvents as $event){
+            foreach($event->joiningUsers as $joiningUser){
+                if($joiningUser->id == $user->id){
+                    $joiningEvents[] = $event;
+                }
+            }
+        }
         
         foreach($allEvents as $event){
             $calendarEvents[] = Calendar::event(
@@ -43,6 +52,6 @@ class FullCalendarController extends Controller{
                 'firstDay' => 1
             ]);
         
-        return view('calendar.index', compact('calendar', 'user', 'calendarEvents', 'recentEvents'));
+        return view('calendar.index', compact('calendar', 'user', 'calendarEvents', 'recentEvents', 'joiningEvents'));
     }
 }

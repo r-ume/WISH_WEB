@@ -19,6 +19,12 @@
                     <a href="" class="item">{{ $event->title }} {{ date('Y-m-d', $event->start_at) }}</a>
                 @endforeach
         </div>
+        <div class="ui fluid vertical menu moderns">
+            <a href="" class="header item">Recent Events</a>
+            @foreach($joiningEvents as $event)
+                <a href="" class="item">{{ $event->title }} {{ date('Y-m-d', $event->start_at) }}</a>
+            @endforeach
+        </div>
         <div class="ui segments moderns">
             <div class="ui header segment">
                 Tweets
