@@ -16,13 +16,14 @@ class UsersController extends Controller {
     protected $user;
     protected $users;
     protected $events;
+    protected $pagination_num;
 
     public function __construct(){
         $this->middleware('auth');
         $this->user = Auth::user();
         $this->users = User::all();
-        $PAGINATION_NUM = 6;
-        $this->events = Event::with('creator')->paginate($PAGINATION_NUM);
+        $this->PAGINATION_NUM = 6;
+        $this->events = Event::with('creator')->paginate($this->PAGINATION_NUM);
     }
 
     public function index(){
