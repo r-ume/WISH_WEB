@@ -5,6 +5,7 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\File;
 
 trait AuthenticatesUsers
 {
@@ -15,8 +16,7 @@ trait AuthenticatesUsers
      *
      * @return \Illuminate\Http\Response
      */
-    public function getLogin()
-    {
+    public function getLogin(){
         return $this->showLoginForm();
     }
 
@@ -25,16 +25,19 @@ trait AuthenticatesUsers
      *
      * @return \Illuminate\Http\Response
      */
-    public function showLoginForm()
-    {
+    public function showLoginForm(){
+        $allImages = File::allFiles('uploads/backgrounds');
+        $key = array_rand($allImages);
+        $image = $allImages[$key];
+        
         $view = property_exists($this, 'loginView')
                     ? $this->loginView : 'auth.authenticate';
 
         if (view()->exists($view)) {
             return view($view);
         }
-
-        return view('auth.login');
+        
+        return view('auth.login', compact('image'));
     }
 
     /**

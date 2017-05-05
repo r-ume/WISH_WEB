@@ -4,7 +4,7 @@ namespace Illuminate\Foundation\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\File;
 
 use App\Language;
 
@@ -29,12 +29,15 @@ trait RegistersUsers
      */
     public function showRegistrationForm(){
         $languages = Language::all();
-    
+        $allImages = File::allFiles('uploads/backgrounds');
+        $key = array_rand($allImages);
+        $image = $allImages[$key];
+        
         if (property_exists($this, 'registerView')) {
             return view($this->registerView);
         }
 
-        return view('auth.register', compact('languages'));
+        return view('auth.register', compact('languages', 'image'));
     }
 
     /**

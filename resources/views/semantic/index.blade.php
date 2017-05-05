@@ -197,7 +197,7 @@
             <div class="ui text container">
                 <h1 class="ui inverted header title" data-ft="WISH_WEB"></h1>
                 <h2 class="quote">{{ $quote }}</h2>
-                <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
+                <div class="ui huge primary button"><a href = "/myprofile" style = "color: white;">Get Started<i class="right arrow icon"></i></a></div>
             </div>
 
         </div>
