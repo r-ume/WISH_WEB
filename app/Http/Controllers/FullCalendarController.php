@@ -15,7 +15,7 @@ class FullCalendarController extends Controller{
     public function index(){
         $user = Auth::user();
         $calendarEvents =[];
-        $events = Event::orderBy('created_at', 'DESC')->get();
+        $events = Event::with('joiningUsers')->orderBy('created_at', 'DESC')->get();
 
         foreach($events as $event){
             $calendarEvents[] = Calendar::event(
