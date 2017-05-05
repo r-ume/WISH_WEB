@@ -3,9 +3,13 @@
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 use App\User;
 use App\Event;
+use App\Wishtimes;
+use App\Feed;
 
 use \Input as Input;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -15,15 +19,19 @@ class UsersController extends Controller {
 
     protected $user;
     protected $users;
+    protected $feeds;
     protected $events;
-    protected $pagination_num;
+    protected $wishtimes;
+    protected $paginationNum;
 
     public function __construct(){
         $this->middleware('auth');
         $this->user = Auth::user();
         $this->users = User::all();
-        $this->PAGINATION_NUM = 6;
-        $this->events = Event::with('creator')->paginate($this->PAGINATION_NUM);
+        $this->paginationNum = 6;
+        $this->events = Event::with('creator', 'categories')->get();
+        $this->feeds = Feed::with('author', 'categories')->get();
+        $this->wishtimes = Wishtimes::with('author', 'categories')->get();
     }
 
     public function index(){
@@ -45,8 +53,34 @@ class UsersController extends Controller {
 
     public function myprofile(){
         $user = $this->user;
+        $paginationNum = $this->paginationNum;
+        $host = 'http://' . $_SERVER['HTTP_HOST'] . '/myprofile';
+        
+        $timeline = new Collection();
+    
+        $feeds = $this->feeds;
         $events = $this->events;
-        return view('users.myprofile', compact('user', 'events'));
+        $wishtimes = $this->wishtimes;
+        
+        foreach($wishtimes as $wishtime){
+            $timeline->push($wishtime);
+        }
+        foreach($events as $event){
+            $timeline->push($event);
+        }
+        foreach($feeds as $feed){
+            $timeline->push($feed);
+        }
+        
+        $timeline = $timeline->sortByDesc('created_at');
+        $initial_timeline = $timeline->sortByDesc('created_at');
+    
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $displayedItem = $timeline->slice($currentPage * $paginationNum, $paginationNum)->all();
+        $timeline = new LengthAwarePaginator($displayedItem, count($timeline), $paginationNum);
+        $timeline->setPath($host);
+        
+        return view('users.myprofile', compact('user', 'timeline', 'initial_timeline'));
     }
 
     /**
