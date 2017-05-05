@@ -79,6 +79,8 @@ class UsersController extends Controller {
         $displayedItem = $timeline->slice($currentPage * $paginationNum, $paginationNum)->all();
         $timeline = new LengthAwarePaginator($displayedItem, count($timeline), $paginationNum);
         $timeline->setPath($host);
+    
+        $initial_timeline = $initial_timeline->slice(0, $paginationNum + 1)->all();
         
         return view('users.myprofile', compact('user', 'timeline', 'initial_timeline'));
     }
