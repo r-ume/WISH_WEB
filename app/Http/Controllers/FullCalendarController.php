@@ -11,13 +11,24 @@ use App\Event;
 use App\Wishtimes;
 
 class FullCalendarController extends Controller{
-
+    
+    protected $allEvents;
+    protected $recentEvents;
+    protected $numOfDisplayedEvents;
+    
+    public function __construct(){
+        $this->numOfDisplayedEvents = 4;
+        $this->allEvents = Event::all();
+        $this->recentEvents = Event::orderBy('created_at', 'DESC')->take($this->numOfDisplayedEvents)->get();
+    }
+    
     public function index(){
         $user = Auth::user();
         $calendarEvents =[];
-        $events = Event::with('joiningUsers')->orderBy('created_at', 'DESC')->get();
-
-        foreach($events as $event){
+        $allEvents = $this->allEvents;
+        $recentEvents = $this->recentEvents;
+        
+        foreach($allEvents as $event){
             $calendarEvents[] = Calendar::event(
                 $event->title,
                 true,
@@ -26,12 +37,12 @@ class FullCalendarController extends Controller{
                 $event->id
             );
         }
-
+        
         $calendar = Calendar::addEvents($calendarEvents)
             ->setOptions([
                 'firstDay' => 1
             ]);
-
-        return view('calendar.index', compact('calendar', 'user', 'events'));
+        
+        return view('calendar.index', compact('calendar', 'user', 'calendarEvents', 'recentEvents'));
     }
 }
