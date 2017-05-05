@@ -33,16 +33,19 @@
 
                     <div class="content">
                         <div class="summary">
-                            <a>{{ $tl->author->first_name }} {{ $tl->author->last_name }}</a> made a new {{ get_class($tl) }}
+                            <a>{{ $tl->author->first_name }} {{ $tl->author->last_name }}</a> made a new {{ substr(get_class($tl), 4) }}
                             <div class="date">{{ $tl->created_at }}</div>
                         </div>
 
                         <div class="extra text">
-                            @if($tl->description)
-                                <a href = "{{action('EventsController@show', [$tl->id])}}" style = "color: black">
+                            @if(substr(get_class($tl), 4) == 'Events')
+                                <a href = "{{action('EventsController@show', [$tl->title])}}" style = "color: black">
                                     {{ $tl->description }}</a>
-                            @elseif($tl->content)
-                                <a href = "{{action('EventsController@show', [$tl->id])}}" style = "color: black">
+                            @elseif((substr(get_class($tl), 4) == 'Wishtimes'))
+                                <a href = "{{action('WishtimesController@show', [$tl->title])}}" style = "color: black">
+                                    {{ $tl->content }}</a>
+                            @elseif((substr(get_class($tl), 4) == 'Feeds'))
+                                <a href = "{{action('EventsController@show', [$tl->title])}}" style = "color: black">
                                     {{ $tl->content }}</a>
                             @endif
                         </div>
@@ -54,32 +57,33 @@
         <div class = "infinite-scroll">
             <div class="ui feed">
                 @foreach($timeline as $tl)
-                    <div class="event">
-                        <div class="label">
-                            id: {{$tl->id}}
-                            class: {{ get_class($tl) }}
-                            {{$tl->created_at}}
-                            {{--@if($tl->creator->image)--}}
-                                {{--<img src= {{ $tl->creator->image }}>--}}
-                            {{--@elseif($tl->author->image)--}}
-                                {{--<img src= {{ $tl->creator->image }}>--}}
-                            {{--@else--}}
-                                {{--no photo--}}
-                            {{--@endif--}}
+                    <div class = "event">
+                        <div class ="label">
+                            @if($tl->author->image) <img src= {{ $tl->author->image }}>
+                            @elseif($tl->creator->image) <img src= {{ $tl->author->image }}>
+                            @endif
                         </div>
-                        {{--<div class="content">--}}
-                            {{--<div class="summary">--}}
-                                {{--<a>{{ $event->creator->first_name }} {{ $event->creator->last_name }}</a> made a new status--}}
-                                {{--<div class="date">{{ $event->created_at }}</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="extra text">--}}
-                                {{--<a href = "{{action('EventsController@show', [$event->id])}}" style = "color: black">--}}
-                                    {{--{{ $event->description }}--}}
-                                {{--</a>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+
+                        <div class="content">
+                            <div class="summary">
+                                <a>{{ $tl->author->first_name }} {{ $tl->author->last_name }}</a> made a new {{ substr(get_class($tl), 4) }}
+                                <div class="date">{{ $tl->created_at }}</div>
+                            </div>
+
+                            <div class="extra text">
+                                @if(substr(get_class($tl), 4) == 'Events')
+                                    <a href = "{{action('EventsController@show', [$tl->title])}}" style = "color: black">
+                                        {{ $tl->description }}</a>
+                                @elseif((substr(get_class($tl), 4) == 'Wishtimes'))
+                                    <a href = "{{action('WishtimesController@show', [$tl->title])}}" style = "color: black">
+                                        {{ $tl->content }}</a>
+                                @elseif((substr(get_class($tl), 4) == 'Feeds'))
+                                    <a href = "{{action('EventsController@show', [$tl->title])}}" style = "color: black">
+                                        {{ $tl->content }}</a>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                    <br>
                 @endforeach
                 {{ $timeline->links() }}
             </div>
