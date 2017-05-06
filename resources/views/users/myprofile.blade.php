@@ -26,14 +26,14 @@
             @foreach($initial_timeline as $tl)
                 <div class="event">
                     <div class ="label">
-                        @if($tl->author->image) <img src= {{ $tl->author->image }}>
-                        @elseif($tl->creator->image) <img src= {{ $tl->author->image }}>
+                        @if($tl->author["image"]) <img src= {{ $tl->author["image"] }}>
+                        @elseif($tl->creator["image"]) <img src= {{ $tl->author["image"] }}>
                         @endif
                     </div>
 
                     <div class="content">
                         <div class="summary">
-                            <a>{{ $tl->author->first_name }} {{ $tl->author->last_name }}</a> made a new {{ substr(get_class($tl), 4) }}
+                            <a>{{ $tl->author["first_name"] }} {{ $tl->author["last_name"] }}</a> made a new {{ substr(get_class($tl), 4) }}
                             <div class="date">{{ $tl->created_at }}</div>
                         </div>
 
@@ -59,14 +59,14 @@
                 @foreach($timeline as $tl)
                     <div class = "event">
                         <div class ="label">
-                            @if($tl->author->image) <img src= {{ $tl->author->image }}>
-                            @elseif($tl->creator->image) <img src= {{ $tl->author->image }}>
+                            @if($tl->author["image"]) <img src= {{ $tl->author["image"] }}>
+                            @elseif($tl->creator["image"]) <img src= {{ $tl->author["image"] }}>
                             @endif
                         </div>
 
                         <div class="content">
                             <div class="summary">
-                                <a>{{ $tl->author->first_name }} {{ $tl->author->last_name }}</a> made a new {{ substr(get_class($tl), 4) }}
+                                <a>{{ $tl->author["first_name"] }} {{ $tl->author["last_name"] }}</a> made a new {{ substr(get_class($tl), 4) }}
                                 <div class="date">{{ $tl->created_at }}</div>
                             </div>
 
