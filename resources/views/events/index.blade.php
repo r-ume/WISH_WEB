@@ -53,7 +53,7 @@
         <div class="ui buttons">
             <button class="ui button disabled">Previous</button>
             @for($i = 1; $i <= $pageNum + 1; $i++)
-                <a href = "/wishtimes?page={{$i}}"><button class="ui button">{{ $i }}</button></a>
+                <a href = "/events?page={{$i}}"><button class="ui button">{{ $i }}</button></a>
             @endfor
             <button class="ui button">...</button>
             <button class="ui button">Next</button>
