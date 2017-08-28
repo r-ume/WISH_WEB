@@ -87,6 +87,16 @@ class UsersTableSeeder extends Seeder{
                 'floor' => '3',
                 'email' => 'michel@unknown.com',
                 'password' => bcrypt('michelunknown')
+            ],
+             [
+                'first_name' => 'yuma',
+                'last_name' => 'kodama',
+                'sex' => 'male',
+                'language_id' => '1',
+                'image' => 'uploads/RAs/yuma.jpg',
+                'floor' => '4',
+                'email' => 'yuma@kodama.com',
+                'password' => bcrypt('yumakodama')
             ]
         ]);
     }
