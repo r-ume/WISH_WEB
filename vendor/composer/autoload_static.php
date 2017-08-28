@@ -334,7 +334,6 @@ class ComposerStaticInit88cc778698a53e57ca793eb799e6785d
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
-        'App\\Services\\Registrar' => __DIR__ . '/../..' . '/app/Services/Registrar.php',
         'App\\Tweet' => __DIR__ . '/../..' . '/app/Tweet.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\Wishtimes' => __DIR__ . '/../..' . '/app/Wishtimes.php',
