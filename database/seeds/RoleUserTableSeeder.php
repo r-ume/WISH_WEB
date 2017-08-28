@@ -40,6 +40,10 @@ class RoleUserTableSeeder extends Seeder{
                 'user_id' => '8',
                 'role_id' => '2',
             ],
+            [
+                'user_id' => '9',
+                'role_id' => '1',
+            ]
         ]);
     }
 }
